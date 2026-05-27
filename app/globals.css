@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFEEE9;
+  --foreground: #2D2D2D;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary-1: #F9704C;
+  --color-primary-2: #FA9479;
+  --color-primary-3: #FCB7A5;
+  --color-primary-4: #FDDBD2;
+  --color-primary-5: #FFEEE9;
+  --color-black-1: #2D2D2D;
+  --color-black-2: #575757;
+  --color-dark-gray-1: #878787;
+  --color-dark-gray-2: #9F9F9F;
+  --color-gray-1: #DADADA;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-nohemi: var(--font-nohemi);
+  --font-gogaSemiBold: var(--font-gogaSemiBold);
+  --font-gogaBold: var(--font-gogaBold);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #FFEEE9;
+    --foreground: #2D2D2D;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nohemi);
+}
+
+.button-text {
+  font-size: 18px;
+  font-family: var(--font-gogaBold);
+  line-height: 110%;
+}
+
+h1 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 104px;
+  line-height: 110%;
+}
+
+h2 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 110%;
+}
+
+h3 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 110%;
+  text-align: center;
+}
+
+h4 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 110%;
+  text-align: center;
+}
+
+h5 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 110%;
+}
+
+h6 {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 110%;
+}
+
+p {
+  font-family: 'Goga Test';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 110%;
+}
+
+.eyebrow {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 110%;
+  text-transform: uppercase;
+}
+
+.accent-text {
+  font-family: 'Goga Test';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 110%;
+  text-transform: uppercase;
+}
+
+.footer-bg {
+  background: radial-gradient(83.89% 83.89% at 50% 16.11%, #FDDBD2 0%, #FCC6B8 33.17%, #F9704C 100%);
 }
