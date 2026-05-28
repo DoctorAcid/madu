@@ -64,12 +64,12 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="z-10 flex w-full pt-[128px] px-20 justify-between">
+      <div className="z-10 flex w-full pt-[128px] px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 justify-between">
         <ContentReveal delay={0.3} className="flex items-center gap-4 h-fit">
-          <div className="w-[52px] h-[52px] shrink-0">
+          <div className="w-[40px] sm:w-[48px] lg:w-[52px] aspect-square shrink-0 flex">
             <DesignDirector />
           </div>
-          <h6 className="text-primary-3 max-w-[256px]">
+          <h6 className="text-primary-3 max-w-[200px] lg:max-w-[256px]">
             Freelance Design Director
           </h6>
         </ContentReveal>
@@ -87,7 +87,7 @@ const HeroSection = () => {
         </ContentReveal> */}
       </div>
 
-      <div className="z-10 flex flex-col gap-3 w-full p-20">
+      <div className="z-10 flex flex-col gap-3 w-full pb-12 lg:pb-0 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20">
         <TextReveal>
           <h1 className="w-full text-primary-3">Design that works.</h1>
         </TextReveal>

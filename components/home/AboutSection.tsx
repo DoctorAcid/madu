@@ -66,7 +66,7 @@ const AboutSection = () => {
 
   return (
     <section className="w-full flex flex-col max-w-[1920px] mx-auto overflow-hidden">
-      <div className="w-full flex px-20 pt-40">
+      <div className="w-full flex px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-40">
         <div className="max-w-[1024px] mx-auto">
           <h1 className="text-center">
             <span className="text-primary-1">7+ years</span> making brands

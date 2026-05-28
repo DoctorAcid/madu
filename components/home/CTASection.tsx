@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const CTASection = () => {
   return (
-    <section className="w-full max-w-[1920px] mx-auto relative flex flex-col gap-4 px-20 py-40">
-      <div className="w-full flex flex-col gap-4 px-16 py-20 rounded-2xl bg-white">
+    <section className="w-full max-w-[1920px] mx-auto relative flex flex-col gap-4 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-40">
+      <div className="w-full flex flex-col gap-4 px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 py-10 md:py-12 lg:py-16 xl:py-18 2xl:py-20 rounded-2xl bg-white">
         <p className="eyebrow text-dark-gray-1">Got a project in mind?</p>
         <TextReveal>
           <h2 className="text-primary-1 max-w-[1080px]">
@@ -20,7 +20,7 @@ const CTASection = () => {
         </p>
       </div>
       <Link href="/contact">
-        <div className="relative group w-full flex items-center justify-between gap-4 px-16 py-10 rounded-2xl bg-white overflow-hidden">
+        <div className="relative group w-full flex items-center justify-between gap-4 px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 py-10 rounded-2xl bg-white overflow-hidden">
           <div className="absolute left-0 right-0 bottom-0 w-full h-0 cursor-pointer bg-primary-1 group-hover:h-full transition-all duration-300 ease-in-out" />
 
           <svg

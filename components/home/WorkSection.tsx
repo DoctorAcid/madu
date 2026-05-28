@@ -84,7 +84,7 @@ const WorkSection = () => {
   }, []);
 
   return (
-    <section className="relative flex flex-col gap-20 w-full p-20 max-w-[1920px] mx-auto">
+    <section className="relative flex flex-col gap-20 w-full p-4 pt-12 lg:pt-0 md:p-8 lg:p-12 xl:p-16 2xl:p-20  max-w-[1920px] mx-auto">
       <div className="flex flex-col gap-3 w-full">
         <TextReveal className="w-full">
           <p className="eyebrow text-dark-gray-1">Projects I'm proud of</p>
@@ -99,7 +99,10 @@ const WorkSection = () => {
         </SecondaryButton>
       </div>
 
-      <div ref={gridRef} className="w-full grid grid-cols-2 gap-x-6 gap-y-20">
+      <div
+        ref={gridRef}
+        className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-20"
+      >
         {WORK_DATA.map((item, i) => (
           <div
             key={item.id}

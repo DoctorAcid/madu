@@ -1,29 +1,55 @@
+import type { Metadata } from "next";
 import AboutSection from "@/components/home/AboutSection";
 import CTASection from "@/components/home/CTASection";
 import HeroSection from "@/components/home/HeroSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import WorkSection from "@/components/home/WorkSection";
-import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Madushan — UI/UX Designer & Frontend Developer",
+  description:
+    "Freelance UI/UX designer and React/Next.js developer based in Sri Lanka. Available for remote projects worldwide.",
+  alternates: { canonical: "https://madushan.design/" },
+  openGraph: {
+    title: "Madushan — UI/UX Designer & Frontend Developer",
+    description:
+      "Freelance UI/UX designer and React/Next.js developer based in Sri Lanka. Available for remote projects worldwide.",
+    url: "https://madushan.design/",
+  },
+  twitter: {
+    title: "Madushan — UI/UX Designer & Frontend Developer",
+    description:
+      "Freelance UI/UX designer and React/Next.js developer based in Sri Lanka. Available for remote projects worldwide.",
+  },
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Madushan",
+  url: "https://madushan.design",
+  jobTitle: "UI/UX Designer & Frontend Developer",
+  description:
+    "Freelance UI/UX designer and React/Next.js developer available for remote projects.",
+  sameAs: [
+    "https://linkedin.com/in/YOUR_PROFILE",
+    "https://github.com/YOUR_PROFILE",
+    "https://www.upwork.com/freelancers/YOUR_PROFILE",
+  ],
+};
 
 export default function Home() {
   return (
     <>
-      <link
-        rel="preload"
-        as="image"
-        href="/images/home/hero.jpg"
-        type="image/webp"
-        fetchPriority="high"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
-      <div className="">
-        <main className="">
-          <HeroSection />
-          <WorkSection />
-          <AboutSection />
-          <ServicesSection />
-          <CTASection />
-        </main>
-      </div>
+      <HeroSection />
+      <WorkSection />
+      <AboutSection />
+      <ServicesSection />
+      <CTASection />
     </>
   );
 }

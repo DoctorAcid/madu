@@ -106,7 +106,7 @@ const ServicesSection = () => {
   return (
     <section
       id="services"
-      className="w-full max-w-[1920px] mx-auto px-20 flex flex-col gap-20 pt-20"
+      className="w-full max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 flex flex-col gap-20 pt-20"
     >
       <div className="w-full flex justify-between gap-10">
         <div className="flex flex-col gap-4">
@@ -119,7 +119,7 @@ const ServicesSection = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-60 w-full">
+      <div className="flex flex-col gap-24 md:gap-32 lg:gap-40 xl:gap-52 2xl:gap-60 w-full">
         {services.map((item, si) => (
           <div
             key={item.id}
@@ -132,7 +132,7 @@ const ServicesSection = () => {
               <h4 className="text-dark-gray-1">{item.title}</h4>
               <p className="text-primary-2">{item.description}</p>
             </div>
-            <div className="grid grid-cols-3 w-full gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-2 md:gap-4 lg:gap-6">
               {item.image.map((img, i) => (
                 <div
                   key={i}

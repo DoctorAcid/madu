@@ -13,17 +13,17 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full relative flex footer-bg overflow-hidden">
+    <footer className="w-full relative min-h-[400px] flex footer-bg overflow-hidden">
       <div className="absolute inset-0">
         <span className="absolute top-0 left-0 w-full h-5 bg-primary-1 blur-xl" />
         <span className="absolute top-0 left-0 w-5 h-full bg-linear-to-b from-primary-1 to-primary-3 blur-xl" />
         <span className="absolute top-0 right-0 w-5 h-full bg-linear-to-b from-primary-1 to-primary-3 blur-xl" />
         <span className="absolute bottom-0 left-0 w-full h-5 bg-primary-3 blur-xl" />
       </div>
-      <div className="w-full h-fit flex px-20">
+      <div className="w-full aspect-1760/867 max-h-[260px] sm:max-h-[300px] md:max-h-[360px] lg:max-h-screen flex items-start px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         <svg
-          width="1760"
-          height="867"
+          width="100%"
+          height="auto"
           viewBox="0 0 1760 867"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -103,12 +103,12 @@ const Footer = () => {
 
       <div className="z-10 absolute bottom-0 w-full">
         <div className="flex flex-col w-full">
-          <div className="flex items-center justify-between w-full gap-10 pb-10 px-20">
+          <div className="flex items-center justify-between w-full gap-4 sm:gap-6 md:gap-8 lg:gap-10 pb-6 md:pb-8 lg:pb-10 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
             <div className="flex items-center gap-4 h-fit">
-              <div className="w-[52px] h-[52px] shrink-0">
+              <div className="w-[40px] sm:w-[48px] lg:w-[52px] aspect-square flex shrink-0">
                 <DesignDirector color="#FFEEE9" />
               </div>
-              <h6 className="text-primary-5 max-w-[256px]">
+              <h6 className="text-primary-5 max-w-[140px] lg:max-w-[256px]">
                 Freelance Design Director
               </h6>
             </div>
@@ -119,8 +119,8 @@ const Footer = () => {
             </h6>
           </div>
           <div className="w-full h-0.5 bg-primary-3" />
-          <div className="flex items-center justify-between w-full gap-10 py-6 px-20">
-            <div className="flex gap-6">
+          <div className="flex items-center justify-between w-full gap-4 sm:gap-6 md:gap-8 lg:gap-10 py-4 lg:py-6 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
+            <div className="flex gap-0 sm:gap-4 md:gap-6">
               <Upwork className="fill-primary-3 group-hover:fill-primary-5" />
               <Fiverr className="fill-primary-3 group-hover:fill-primary-5" />
               {/* <Facebook className="fill-primary-3 group-hover:fill-primary-5" />
@@ -128,7 +128,7 @@ const Footer = () => {
               <Instagram className="fill-primary-3 group-hover:fill-primary-5" /> */}
             </div>
 
-            <div className="flex gap-10">
+            <div className="flex gap-6 sm:gap-8 md:gap-10">
               <Link
                 href="/work"
                 className="group/work relative button-text text-primary-3 hover:text-primary-5 transition-all ease-out duration-300"
