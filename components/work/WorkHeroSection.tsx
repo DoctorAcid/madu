@@ -52,9 +52,12 @@ const WorkHeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full relative pt-40 flex justify-center overflow-hidden"
+      className="w-full relative pt-0 md:pt-20 lg:pt-40 flex justify-center overflow-hidden"
     >
-      <div ref={bgRef} className="flex w-[120vw]">
+      <div
+        ref={bgRef}
+        className="flex w-[120vw] max-h-[300px] md:max-h-screen items-center"
+      >
         <svg
           width="2000"
           height="575"
@@ -127,7 +130,7 @@ const WorkHeroSection = () => {
         </svg>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-20 gap-2">
+      <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 gap-2">
         <h3 className="text-primary-1">04</h3>
         <p className="accent-text text-dark-gray-1">Projects & case studies</p>
       </div>

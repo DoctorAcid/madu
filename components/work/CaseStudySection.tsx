@@ -141,9 +141,9 @@ const CaseStudySection = () => {
   }, []);
 
   return (
-    <section className="grid grid-cols-12 w-full gap-6 p-20 relative">
+    <section className="grid grid-cols-12 w-full gap-6 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 relative">
       {/* Pagination */}
-      <div className="col-span-2 h-screen flex flex-col sticky top-0 justify-center gap-4">
+      <div className="col-span-2 hidden md:flex h-screen flex-col sticky top-0 justify-center gap-4">
         {PAGENATION_LIST.map((name, index) => (
           <button
             key={index}
@@ -185,7 +185,7 @@ const CaseStudySection = () => {
       </div>
 
       {/* Case Study Content */}
-      <div className="w-full col-span-10 flex flex-col gap-8">
+      <div className="w-full col-span-12 lg:col-span-10 flex flex-col gap-8">
         <div className="flex flex-col w-full">
           {CASESTUDY_DATA.map((item, index) => {
             const pattern =
@@ -197,11 +197,11 @@ const CaseStudySection = () => {
                   sectionRefs.current[index] = el;
                 }}
                 id={PAGENATION_LIST[index].toLowerCase()}
-                className="w-full flex flex-col gap-8 py-20"
+                className="w-full flex flex-col gap-8 py-12 md:py-16 lg:py-20"
                 key={index}
               >
                 {/* Meta row */}
-                <div className="flex gap-8 w-full">
+                <div className="flex flex-col md:flex-row gap-8 w-full">
                   <div className="w-full flex flex-col gap-2">
                     <p className="eyebrow text-dark-gray-2">//0{item.id}</p>
                     <h5 className="text-primary-1">{item.title}</h5>
@@ -209,25 +209,25 @@ const CaseStudySection = () => {
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <p className="text-black-1">Challenge</p>
-                    <p className="eyebrow text-dark-gray-1">{item.challenge}</p>
+                    <p className="text-dark-gray-1">{item.challenge}</p>
                   </div>
-                  <div className="w-full flex flex-col gap-2">
+                  <div className="w-full flex flex-row flex-wrap md:flex-col gap-2">
                     {item.keywords.map((keyword, i) => (
                       <PrimaryBadge key={i} text={keyword} />
                     ))}
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <p className="text-black-1">Role</p>
-                    <p className="eyebrow text-dark-gray-1">{item.role}</p>
+                    <p className="text-dark-gray-1">{item.role}</p>
                   </div>
                 </div>
 
                 {/* Bento grid */}
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-2 lg:gap-3">
                   {item.images.map((image, i) => (
                     <div
                       key={i}
-                      className={`${COL[pattern[i]]} h-120 relative overflow-hidden rounded-2xl group`}
+                      className={`${COL[pattern[i]]} h-80 md:h-100 lg:h-120 relative overflow-hidden rounded-lg md:rounded-2xl group`}
                     >
                       <Image
                         src={image}

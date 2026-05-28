@@ -106,9 +106,9 @@ const ServicesSection = () => {
   return (
     <section
       id="services"
-      className="w-full max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 flex flex-col gap-20 pt-20"
+      className="w-full max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 flex flex-col gap-20 pt-20 overflow-hidden"
     >
-      <div className="w-full flex justify-between gap-10">
+      <div className="w-full flex flex-col md:flex-row justify-between gap-10">
         <div className="flex flex-col gap-4">
           <p className="eyebrow text-dark-gray-1">Design Expert</p>
           <h2 className="text-primary-1">End-to-end,from idea to launch</h2>

@@ -101,7 +101,7 @@ const WorkSection = () => {
 
       <div
         ref={gridRef}
-        className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-20"
+        className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-y-16 lg:gap-y-20"
       >
         {WORK_DATA.map((item, i) => (
           <div

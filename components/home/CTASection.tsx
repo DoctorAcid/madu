@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const CTASection = () => {
   return (
-    <section className="w-full max-w-[1920px] mx-auto relative flex flex-col gap-4 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-40">
+    <section className="w-full max-w-[1920px] mx-auto relative flex flex-col gap-4 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-20 md:py-24 lg:py-32 xl:py-40">
       <div className="w-full flex flex-col gap-4 px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 py-10 md:py-12 lg:py-16 xl:py-18 2xl:py-20 rounded-2xl bg-white">
         <p className="eyebrow text-dark-gray-1">Got a project in mind?</p>
         <TextReveal>

@@ -54,7 +54,7 @@ const HeroSection = () => {
     <section
       id="hero-section"
       ref={sectionRef}
-      className="relative w-full h-screen flex flex-col justify-between bg-primary-1"
+      className="relative w-full h-[90vh] md:h-screen flex flex-col justify-between bg-primary-1"
     >
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {/* Background Image */}
@@ -64,7 +64,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="z-10 flex w-full pt-[128px] px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 justify-between">
+      <div className="z-10 flex w-full pt-20 xl:pt-24 2xl:pt-32 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 justify-between">
         <ContentReveal delay={0.3} className="flex items-center gap-4 h-fit">
           <div className="w-[40px] sm:w-[48px] lg:w-[52px] aspect-square shrink-0 flex">
             <DesignDirector />

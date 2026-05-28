@@ -172,7 +172,7 @@ const ContactPage = () => {
 
   return (
     <section className="w-full">
-      <div className="grid grid-cols-2 min-h-screen p-20 gap-20 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 gap-12 md:gap-16 lg:gap-20 relative">
         {/* HERO */}
         <div className="col-span-1 flex pt-20 w-full">
           <div className="w-full flex flex-col gap-8">
@@ -180,7 +180,7 @@ const ContactPage = () => {
               <div className="group flex flex-col w-full cursor-pointer">
                 <div className="w-full flex items-center justify-between">
                   <h1 className="display-2 text-black-2">Hello</h1>
-                  <div className="flex relative items-center justify-center w-20 h-20 overflow-hidden">
+                  <div className="hidden md:flex relative items-center justify-center w-20 aspect-square overflow-hidden">
                     <svg
                       width="80"
                       height="80"
@@ -199,6 +199,19 @@ const ContactPage = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       className="absolute opacity-0 -translate-x-40 translate-y-40 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 fill-primary-1 transition-all duration-200"
+                    >
+                      <path d="M4 67.9504L49.2788 22.6716C50.9459 21.0045 50.9459 18.3016 49.2788 16.6344C48.4453 15.8009 47.3527 15.3846 46.2602 15.3846H29.715V4H75.998V4.00197H76V50.285H64.6154V33.7398C64.6154 32.6473 64.1991 31.5547 63.3656 30.7212C61.6984 29.0541 58.9955 29.0541 57.3284 30.7212L12.0496 76L4 67.9504Z" />
+                    </svg>
+                  </div>
+
+                  <div className="md:hidden relative items-center justify-center w-14 aspect-square overflow-hidden">
+                    <svg
+                      width="52"
+                      height="52"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute opacity-100 group-hover:opacity-0 fill-black-2 group-hover:translate-x-40 group-hover:-translate-y-40 transition-all duration-200"
                     >
                       <path d="M4 67.9504L49.2788 22.6716C50.9459 21.0045 50.9459 18.3016 49.2788 16.6344C48.4453 15.8009 47.3527 15.3846 46.2602 15.3846H29.715V4H75.998V4.00197H76V50.285H64.6154V33.7398C64.6154 32.6473 64.1991 31.5547 63.3656 30.7212C61.6984 29.0541 58.9955 29.0541 57.3284 30.7212L12.0496 76L4 67.9504Z" />
                     </svg>
@@ -268,14 +281,14 @@ const ContactPage = () => {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="w-full flex flex-col gap-4 bg-white/50 rounded-2xl p-8"
+              className="w-full flex flex-col gap-4 bg-white/50 rounded-2xl p-6 md:p-8"
             >
               <div className="flex flex-col gap-8">
                 <h5 className="max-w-[280px] text-black-2">
                   Drop your message here
                 </h5>
                 {/* Row 1: Name + Email */}
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   <Field label="Your Name" error={errors.name}>
                     <input
                       className={`${inputBase} ${errors.name ? "border-red-400" : ""}`}
