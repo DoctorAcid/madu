@@ -32,9 +32,9 @@ const personSchema = {
   description:
     "Freelance UI/UX designer and React/Next.js developer available for remote projects.",
   sameAs: [
-    "https://linkedin.com/in/YOUR_PROFILE",
-    "https://github.com/YOUR_PROFILE",
-    "https://www.upwork.com/freelancers/YOUR_PROFILE",
+    "https://www.linkedin.com/in/madushan-nagalingam-8549b7195",
+    "https://github.com/DoctorAcid",
+    "https://www.upwork.com/freelancers/~0141b99449f769937d",
   ],
 };
 
