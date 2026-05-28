@@ -1,8 +1,10 @@
 "use client";
 
 import Facebook from "@/components/common/buttons/social/Facebook";
+import Fiverr from "@/components/common/buttons/social/Fiverr";
 import Instagram from "@/components/common/buttons/social/Instagram";
 import LinkedIn from "@/components/common/buttons/social/LinkedIn";
+import Upwork from "@/components/common/buttons/social/Upwork";
 import ContentReveal from "@/components/common/reveals/ContentReveal";
 import TextReveal from "@/components/common/reveals/TextReveal";
 import DesignDirector from "@/public/assets/svg/DesignDirector";
@@ -119,9 +121,11 @@ const Footer = () => {
           <div className="w-full h-0.5 bg-primary-3" />
           <div className="flex items-center justify-between w-full gap-10 py-6 px-20">
             <div className="flex gap-6">
-              <Facebook className="fill-primary-3 group-hover:fill-primary-5" />
+              <Upwork className="fill-primary-3 group-hover:fill-primary-5" />
+              <Fiverr className="fill-primary-3 group-hover:fill-primary-5" />
+              {/* <Facebook className="fill-primary-3 group-hover:fill-primary-5" />
               <LinkedIn className="fill-primary-3 group-hover:fill-primary-5" />
-              <Instagram className="fill-primary-3 group-hover:fill-primary-5" />
+              <Instagram className="fill-primary-3 group-hover:fill-primary-5" /> */}
             </div>
 
             <div className="flex gap-10">

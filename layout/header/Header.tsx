@@ -76,7 +76,7 @@ const Header = () => {
             ></span>
           </Link>
 
-          <PrimaryButton href="mailto:madunaga6@gmail.com">
+          <PrimaryButton href="mailto:hello@madushan.design">
             Let's Talk
           </PrimaryButton>
         </div>

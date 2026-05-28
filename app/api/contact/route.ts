@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
   try {
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.GMAIL_USER}>`,
-      to: "madunaga6@gmail.com",
+      to: "hello@madushan.design",
+      cc: "madushan.design.hello@gmail.com",
       replyTo: email,
       subject: `New enquiry from ${name} — ${SERVICE_LABELS[type] ?? type}`,
       html: `

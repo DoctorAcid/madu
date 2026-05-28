@@ -12,6 +12,8 @@ import TextReveal from "../common/reveals/TextReveal";
 import ContentReveal from "../common/reveals/ContentReveal";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Upwork from "../common/buttons/social/Upwork";
+import Fiverr from "../common/buttons/social/Fiverr";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,15 +74,17 @@ const HeroSection = () => {
           </h6>
         </ContentReveal>
 
-        <ContentReveal
+        {/* <ContentReveal
           delay={0.3}
           direction="right"
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-4"
         >
+          <Upwork className="fill-primary-3 group-hover:fill-primary-5" />
+          <Fiverr className="fill-primary-3 group-hover:fill-primary-5" />
           <Facebook className="fill-primary-3 group-hover:fill-primary-5" />
           <LinkedIn className="fill-primary-3 group-hover:fill-primary-5" />
           <Instagram className="fill-primary-3 group-hover:fill-primary-5" />
-        </ContentReveal>
+        </ContentReveal> */}
       </div>
 
       <div className="z-10 flex flex-col gap-3 w-full p-20">

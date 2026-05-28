@@ -123,3 +123,11 @@ p {
 .footer-bg {
   background: radial-gradient(83.89% 83.89% at 50% 16.11%, #FDDBD2 0%, #FCC6B8 33.17%, #F9704C 100%);
 }
+
+textarea, input {
+  font-family: 'Goga Test';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 110%;
+}

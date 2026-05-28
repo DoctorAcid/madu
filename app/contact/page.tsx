@@ -2,6 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ArrowRightSvg from "@/public/assets/svg/ArrowRightSvg";
+import Link from "next/link";
+import Fiverr from "@/components/common/buttons/social/Fiverr";
+import Upwork from "@/components/common/buttons/social/Upwork";
 
 type FormData = {
   name: string;
@@ -68,7 +71,7 @@ const CustomSelect = ({
           open ? "border-primary-1" : error ? "border-red-400" : "border-gray-1"
         } ${selected ? "text-black-2" : "text-dark-gray-2"}`}
       >
-        <span>{selected ? selected.label : "Select a service"}</span>
+        <p>{selected ? selected.label : "Select a service"}</p>
         <svg
           width="18"
           height="18"
@@ -91,13 +94,13 @@ const CustomSelect = ({
                 onChange(s.value);
                 setOpen(false);
               }}
-              className={`px-6 py-3 cursor-pointer transition-colors duration-150 ${
+              className={`px-6 py-4 cursor-pointer transition-colors duration-150 ${
                 s.value === value
                   ? "bg-primary-1 text-primary-5"
                   : "text-black-2 hover:bg-primary-5 hover:text-primary-1"
               }`}
             >
-              {s.label}
+              <p>{s.label}</p>
             </li>
           ))}
         </ul>
@@ -145,7 +148,7 @@ const ContactPage = () => {
       if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
     };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errs = validate(form);
     if (Object.keys(errs).length) {
@@ -173,24 +176,86 @@ const ContactPage = () => {
         {/* HERO */}
         <div className="col-span-1 flex pt-20 w-full">
           <div className="w-full flex flex-col gap-8">
-            <div className="flex flex-col w-full">
-              <h1 className="display-2 text-black-2">Madunaga6</h1>
-              <h1 className="display-4 w-full text-right text-black-2">
-                @gmail
-              </h1>
-              <h1 className="display-2 w-full text-center text-black-2">
-                .com
-              </h1>
-            </div>
+            <Link href="mailto:hello@madushan.design">
+              <div className="group flex flex-col w-full cursor-pointer">
+                <div className="w-full flex items-center justify-between">
+                  <h1 className="display-2 text-black-2">Hello</h1>
+                  <div className="flex relative items-center justify-center w-20 h-20 overflow-hidden">
+                    <svg
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute opacity-100 group-hover:opacity-0 fill-black-2 group-hover:translate-x-40 group-hover:-translate-y-40 transition-all duration-200"
+                    >
+                      <path d="M4 67.9504L49.2788 22.6716C50.9459 21.0045 50.9459 18.3016 49.2788 16.6344C48.4453 15.8009 47.3527 15.3846 46.2602 15.3846H29.715V4H75.998V4.00197H76V50.285H64.6154V33.7398C64.6154 32.6473 64.1991 31.5547 63.3656 30.7212C61.6984 29.0541 58.9955 29.0541 57.3284 30.7212L12.0496 76L4 67.9504Z" />
+                    </svg>
+
+                    <svg
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute opacity-0 -translate-x-40 translate-y-40 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 fill-primary-1 transition-all duration-200"
+                    >
+                      <path d="M4 67.9504L49.2788 22.6716C50.9459 21.0045 50.9459 18.3016 49.2788 16.6344C48.4453 15.8009 47.3527 15.3846 46.2602 15.3846H29.715V4H75.998V4.00197H76V50.285H64.6154V33.7398C64.6154 32.6473 64.1991 31.5547 63.3656 30.7212C61.6984 29.0541 58.9955 29.0541 57.3284 30.7212L12.0496 76L4 67.9504Z" />
+                    </svg>
+                  </div>
+                </div>
+                <h1 className="display-4 w-full text-black-2 group-hover:text-primary-1 transition-all duration-200">
+                  @madushan
+                </h1>
+                <h1 className="display-2 w-full text-right text-black-2">
+                  .design
+                </h1>
+              </div>
+            </Link>
             <p className="max-w-[600px] text-dark-gray-1">
               Whether you have a detailed brief or just an early idea — I&apos;d
               love to hear about it. I typically reply within 24 hours.
             </p>
+            <div className="flex items-center gap-2 bg-white w-fit px-4 py-3 rounded-lg">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                className="stroke-black-2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+
+              <div className="flex gap-2 items-center">
+                <p className="text-black-2" style={{ fontSize: "14px" }}>
+                  Usually replies within
+                </p>{" "}
+                <p
+                  className="eyebrow text-primary-1"
+                  style={{ fontSize: "14px" }}
+                >
+                  24 hours
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2 h-full justify-end">
+              <p className="eyebrow text-black-2" style={{ fontSize: "14px" }}>
+                Or hire me on
+              </p>
+              <div className="flex items-center gap-4">
+                <Upwork className="fill-primary-2 group-hover:fill-primary-1" />
+                <Fiverr className="fill-primary-2 group-hover:fill-primary-1" />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* FORM */}
-        <div className="col-span-1 w-full flex items-end pt-40">
+        <div className="col-span-1 w-full flex items-end ">
           {status === "sent" ? (
             <div className="flex flex-col gap-4">
               <h4 className="text-primary-1">Message sent!</h4>
@@ -203,14 +268,17 @@ const ContactPage = () => {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="w-full flex flex-col gap-4"
+              className="w-full flex flex-col gap-4 bg-white/50 rounded-2xl p-8"
             >
               <div className="flex flex-col gap-8">
+                <h5 className="max-w-[280px] text-black-2">
+                  Drop your message here
+                </h5>
                 {/* Row 1: Name + Email */}
                 <div className="grid grid-cols-2 gap-2">
                   <Field label="Your Name" error={errors.name}>
                     <input
-                      className={inputBase}
+                      className={`${inputBase} ${errors.name ? "border-red-400" : ""}`}
                       type="text"
                       name="name"
                       placeholder="Alex Morgan"
@@ -222,7 +290,7 @@ const ContactPage = () => {
 
                   <Field label="Email Address" error={errors.email}>
                     <input
-                      className={inputBase}
+                      className={`${inputBase} ${errors.name ? "border-red-400" : ""}`}
                       type="email"
                       name="email"
                       placeholder="alex@company.com"
@@ -252,7 +320,7 @@ const ContactPage = () => {
                   error={errors.message}
                 >
                   <textarea
-                    className={`${inputBase} resize-none`}
+                    className={`${inputBase} resize-none ${errors.name ? "border-red-400" : ""}`}
                     name="message"
                     placeholder="Share as much or as little as you like — timeline, goals, rough budget…"
                     rows={6}
@@ -267,14 +335,14 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="relative group w-full flex items-center justify-between gap-4 button-text text-primary-1 bg-white hover:text-primary-5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-lg outline-none cursor-pointer py-4 pl-8 pr-6 overflow-hidden"
+                  className="relative group w-full flex items-center justify-between gap-4 button-text text-primary-5 bg-primary-1 hover:text-primary-1 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 rounded-lg outline-none cursor-pointer py-4 pl-8 pr-6 overflow-hidden"
                 >
-                  <div className="absolute left-0 right-0 bottom-0 w-full h-0 cursor-pointer bg-primary-1 group-hover:h-full transition-all duration-300 ease-in-out" />
+                  <div className="absolute left-0 right-0 bottom-0 w-full h-0 cursor-pointer bg-white group-hover:h-full transition-all duration-300 ease-in-out" />
                   <div className="z-1 flex items-center justify-between gap-8 w-full">
                     <span>
                       {status === "sending" ? "Sending…" : "Send Message"}
                     </span>
-                    <ArrowRightSvg className="stroke-primary-1 group-hover:stroke-primary-5" />
+                    <ArrowRightSvg className="stroke-primary-5 group-hover:stroke-primary-1" />
                   </div>
                 </button>
 
@@ -282,10 +350,10 @@ const ContactPage = () => {
                   No spam, no mailing lists. Your details are used only to reply
                   to your message.{" — "}
                   <a
-                    href="mailto:hello@madushan.com"
+                    href="mailto:hello@madushan.design"
                     className="underline underline-offset-[3px] hover:text-primary-1 transition-colors duration-200"
                   >
-                    hello@madushan.com
+                    hello@madushan.design
                   </a>
                 </p>
               </div>
