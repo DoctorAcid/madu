@@ -14,8 +14,8 @@ const services = [
     description:
       "Creating high-end and beautiful websites built to perform and convert.",
     image: [
-      "/assets/images/home/works/wave-cover.jpg",
-      "/assets/images/home/works/nego-cover.jpg",
+      "/assets/images/work/vaasthira/5.jpg",
+      "/assets/images/work/wave/5.jpg",
       "/assets/images/home/works/vaasthira-cover.jpg",
     ],
   },
@@ -23,11 +23,11 @@ const services = [
     id: 2,
     title: "Saas/Mobile App Design",
     description:
-      "Creating high-end and beautiful websites built to perform and convert.",
+      "Creating high-perfomance and quality Saas and mobile apps built to perform and convert.",
     image: [
-      "/assets/images/home/works/hmi-cover.jpg",
-      "/assets/images/home/works/nego-cover.jpg",
-      "/assets/images/home/works/vaasthira-cover.jpg",
+      "/assets/images/work/nego/2.jpg",
+      "/assets/images/work/hmi/1.jpg",
+      "/assets/images/work/nego/7.jpg",
     ],
   },
   {
@@ -36,9 +36,9 @@ const services = [
     description:
       "Helping brands find a distinctive visual language that truly stands out.",
     image: [
-      "/assets/images/home/works/hmi-cover.jpg",
-      "/assets/images/home/works/nego-cover.jpg",
-      "/assets/images/home/works/vaasthira-cover.jpg",
+      "/assets/images/work/nego/1.jpg",
+      "/assets/images/work/vaasthira/2.jpg",
+      "/assets/images/work/wave/4.jpg",
     ],
   },
   {
@@ -47,9 +47,9 @@ const services = [
     description:
       "Building elegant and responsive projects featuring creative micro-interactions and seamless CMS hand-off.",
     image: [
-      "/assets/images/home/works/hmi-cover.jpg",
-      "/assets/images/home/works/nego-cover.jpg",
-      "/assets/images/home/works/vaasthira-cover.jpg",
+      "/assets/images/work/vaasthira/3.jpg",
+      "/assets/images/work/wave/2.jpg",
+      "/assets/images/work/nego/4.jpg",
     ],
   },
 ];

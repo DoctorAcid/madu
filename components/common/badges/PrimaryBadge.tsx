@@ -8,7 +8,7 @@ interface PrimaryBadgeProps {
 
 const PrimaryBadge = ({ text }: PrimaryBadgeProps) => {
   return (
-    <div className="w-fit accent-text flex items-center justify-center px-4 py-2 text-primary-2 bg-white rounded-full">
+    <div className="w-fit h-fit accent-text flex items-center justify-center px-4 py-2 text-primary-2 bg-white rounded-full">
       {text}
     </div>
   );
