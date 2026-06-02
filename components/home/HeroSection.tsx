@@ -49,7 +49,7 @@ const HeroSection = () => {
     <section
       id="hero-section"
       ref={sectionRef}
-      className="relative w-full h-screen flex flex-col justify-between bg-primary-1"
+      className="relative w-full h-[95vh] md:h-screen flex flex-col justify-between bg-primary-1"
     >
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {/* Background Image */}
