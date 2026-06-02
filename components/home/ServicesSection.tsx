@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TextReveal from "../common/reveals/TextReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,18 +63,18 @@ const ServicesSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 768;
+
       rowRefs.current.forEach((row, si) => {
         if (!row) return;
 
-        const center = imageRefs.current[si][1];
-        const sides = [
-          imageRefs.current[si][0],
-          imageRefs.current[si][2],
-        ].filter(Boolean) as HTMLDivElement[];
+        const all = [0, 1, 2]
+          .map((i) => imageRefs.current[si][i])
+          .filter(Boolean) as HTMLDivElement[];
 
-        if (!center) return;
+        if (!all.length) return;
 
-        gsap.set([center, ...sides], {
+        gsap.set(all, {
           rotateX: 80,
           y: 100,
           transformPerspective: 900,
@@ -89,14 +90,28 @@ const ServicesSection = () => {
           },
         });
 
-        // Center finishes first — shorter duration
-        tl.to(
-          center,
-          { rotateX: 0, y: 0, ease: "power2.out", duration: 0.55 },
-          0,
-        );
-        // Sides finish together after center
-        tl.to(sides, { rotateX: 0, y: 0, ease: "power2.out", duration: 1 }, 0);
+        if (isMobile) {
+          // Single column — all images animate together from the same direction
+          tl.to(all, { rotateX: 0, y: 0, ease: "power2.out", duration: 1 }, 0);
+        } else {
+          // Three columns — center finishes first, sides together after
+          const center = imageRefs.current[si][1];
+          const sides = [
+            imageRefs.current[si][0],
+            imageRefs.current[si][2],
+          ].filter(Boolean) as HTMLDivElement[];
+          if (!center) return;
+          tl.to(
+            center,
+            { rotateX: 0, y: 0, ease: "power2.out", duration: 0.55 },
+            0,
+          );
+          tl.to(
+            sides,
+            { rotateX: 0, y: 0, ease: "power2.out", duration: 1 },
+            0,
+          );
+        }
       });
     });
 
@@ -110,13 +125,20 @@ const ServicesSection = () => {
     >
       <div className="w-full flex flex-col md:flex-row justify-between gap-10">
         <div className="flex flex-col gap-4">
-          <p className="eyebrow text-dark-gray-1">Design Expert</p>
-          <h2 className="text-primary-1">End-to-end,from idea to launch</h2>
+          <TextReveal>
+            <p className="eyebrow text-dark-gray-1">Design Expert</p>
+          </TextReveal>
+          <TextReveal delay={0.2}>
+            <h2 className="text-primary-1">End-to-end,from idea to launch</h2>
+          </TextReveal>
         </div>
-        <p className="max-w-[600px]">
-          I work across the full product lifecycle — from early research and
-          wireframes through to pixel-perfect design and production-ready code.
-        </p>
+        <TextReveal delay={0.4} splitBy="words">
+          <p className="max-w-[600px]">
+            I work across the full product lifecycle — from early research and
+            wireframes through to pixel-perfect design and production-ready
+            code.
+          </p>
+        </TextReveal>
       </div>
 
       <div className="flex flex-col gap-24 md:gap-32 lg:gap-40 xl:gap-52 2xl:gap-60 w-full">
@@ -129,10 +151,14 @@ const ServicesSection = () => {
             className="flex flex-col gap-8 items-center text-center"
           >
             <div className="flex flex-col gap-4 max-w-[400px]">
-              <h4 className="text-dark-gray-1">{item.title}</h4>
-              <p className="text-primary-2">{item.description}</p>
+              <TextReveal splitBy="words">
+                <h4 className="text-dark-gray-1">{item.title}</h4>
+              </TextReveal>
+              <TextReveal splitBy="words" delay={0.2}>
+                <p className="text-primary-2">{item.description}</p>
+              </TextReveal>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-2 md:gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-2 md:gap-4 lg:gap-6">
               {item.image.map((img, i) => (
                 <div
                   key={i}

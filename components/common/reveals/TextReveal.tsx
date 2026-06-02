@@ -48,7 +48,7 @@ const TextReveal = ({
         gsap.set(units[unitIdx], { opacity: 0 });
         gsap.fromTo(
           units[unitIdx],
-          { y: "60%" },
+          { y: "40%" },
           {
             y: "0%",
             opacity: 1,
@@ -95,7 +95,7 @@ const TextReveal = ({
                 className="inline-block whitespace-nowrap"
                 style={{
                   lineHeight: "inherit",
-                  transform: "translateY(60%)",
+                  transform: "translateY(40%)",
                   opacity: 0,
                 }}
               >
@@ -122,7 +122,7 @@ const TextReveal = ({
                     className="inline-block"
                     style={{
                       lineHeight: "inherit",
-                      transform: "translateY(60%)",
+                      transform: "translateY(40%)",
                       opacity: 0,
                     }}
                   >

@@ -154,12 +154,15 @@ const GrainTrailMaterial = shaderMaterial(
 `,
 );
 
+// Stable default outside the component so it never causes dependency changes.
+const LINEAR = (x: number) => x;
+
 function Scene({
   image,
   trailSize = 10.0,
   maxAge = 2500,
   interpolate = 0.05,
-  easingFunction = (x: number) => x,
+  easingFunction = LINEAR,
   color = "#ffffff",
   onReady,
 }: {
@@ -176,6 +179,8 @@ function Scene({
   const matRef = useRef<any>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const mouseUV = useRef(new THREE.Vector2(0.5, 0.5));
+  // Reuse a single Vector2 for onMove to avoid allocating on every pointermove.
+  const moveUV = useRef(new THREE.Vector2());
 
   const texture = useTexture(image);
 
@@ -183,12 +188,17 @@ function Scene({
   useEffect(() => { onReady(); }, []);
 
   const [trail, onMove] = useTrailTexture({
-    size: 1920,
+    // 512 instead of 1920 — trail texture is 512×512 = ~1 MB vs 14 MB.
+    // Fully sufficient for smooth visual results and prevents GPU OOM on navigation.
+    size: 512,
     radius: trailSize,
     maxAge,
     interpolate,
     ease: easingFunction,
   }) as [THREE.Texture | null, (e: { uv?: THREE.Vector2 }) => void];
+
+  // Dispose trail DataTexture on unmount — R3F doesn't own it so won't free it.
+  useEffect(() => () => { trail?.dispose(); }, [trail]);
 
   if (trail) {
     trail.minFilter = THREE.LinearFilter;
@@ -206,7 +216,8 @@ function Scene({
       const u = (e.clientX - rect.left) / rect.width;
       const v = 1 - (e.clientY - rect.top) / rect.height;
       mouseUV.current.set(u, v);
-      onMove({ uv: new THREE.Vector2(u, v) });
+      moveUV.current.set(u, v);
+      onMove({ uv: moveUV.current });
     };
     window.addEventListener("pointermove", handleMove);
     return () => window.removeEventListener("pointermove", handleMove);
@@ -230,8 +241,12 @@ function Scene({
 
   const material = useMemo(() => new GrainTrailMaterial(), []);
 
+  // R3F does not auto-dispose <primitive> objects — do it manually on unmount
+  // so the compiled shader program is freed from GPU memory on navigation.
+  useEffect(() => () => { material.dispose(); }, [material]);
+
   if (material) {
-    material.uniforms.pixelColor.value = new THREE.Color(color);
+    (material.uniforms.pixelColor.value as THREE.Color).set(color);
     material.uniforms.mouseTrail.value = trail;
     material.uniforms.uTexture.value = texture;
     material.uniforms.uMouse.value.copy(mouseUV.current);
@@ -252,7 +267,7 @@ export default function PixelTrail({
   trailSize = 0.1,
   maxAge = 1080,
   interpolate = 0.1,
-  easingFunction = (x: number) => x,
+  easingFunction = LINEAR,
   canvasProps = {},
   glProps = {
     antialias: false,

@@ -36,7 +36,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Madushan",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Madushan — UI/UX Designer & Frontend Developer" }],
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Madushan — UI/UX Designer & Frontend Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

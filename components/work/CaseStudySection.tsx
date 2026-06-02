@@ -122,7 +122,9 @@ const PentagonIcon = ({ className }: { className?: string }) => (
 
 const CaseStudySection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -139,6 +141,31 @@ const CaseStudySection = () => {
 
     return () => ctx.revert();
   }, []);
+
+  // Fade-in when lightbox opens; lock body scroll
+  useEffect(() => {
+    if (!lightbox) return;
+    document.body.style.overflow = "hidden";
+    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" });
+    return () => { document.body.style.overflow = ""; };
+  }, [lightbox]);
+
+  // ESC key to close
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeLightbox(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightbox]);
+
+  const closeLightbox = () => {
+    gsap.to(overlayRef.current, {
+      opacity: 0,
+      duration: 0.2,
+      ease: "power2.in",
+      onComplete: () => setLightbox(null),
+    });
+  };
 
   return (
     <section className="grid grid-cols-12 w-full gap-6 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 relative">

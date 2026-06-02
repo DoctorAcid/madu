@@ -5,6 +5,7 @@ import ArrowRightSvg from "@/public/assets/svg/ArrowRightSvg";
 import Link from "next/link";
 import Fiverr from "@/components/common/buttons/social/Fiverr";
 import Upwork from "@/components/common/buttons/social/Upwork";
+import PrimaryButton from "@/components/common/buttons/PrimaryButton";
 
 type FormData = {
   name: string;
@@ -270,12 +271,130 @@ const ContactPage = () => {
         {/* FORM */}
         <div className="col-span-1 w-full flex items-end ">
           {status === "sent" ? (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full h-full items-center justify-center text-center">
+              <div className="flex items-center justify-center mb-2">
+                <div className="absolute w-10 h-8 mt-1 flex items-center justify-center">
+                  <svg
+                    width="39"
+                    height="31"
+                    viewBox="0 0 39 31"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.12109 16.1213L12.1211 26.1213L36.1211 2.12134"
+                      stroke="#FFEEE9"
+                      stroke-width="6"
+                    />
+                  </svg>
+                </div>
+                <svg
+                  width="80"
+                  height="80"
+                  viewBox="0 0 80 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="40"
+                    fill="url(#paint0_radial_54022_88)"
+                  />
+                  <mask
+                    id="mask0_54022_88"
+                    maskUnits="userSpaceOnUse"
+                    x="0"
+                    y="0"
+                    width="80"
+                    height="80"
+                  >
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="40"
+                      fill="url(#paint1_radial_54022_88)"
+                    />
+                  </mask>
+                  <g mask="url(#mask0_54022_88)">
+                    <g filter="url(#filter0_f_54022_88)">
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="38"
+                        stroke="url(#paint2_linear_54022_88)"
+                        stroke-width="4"
+                      />
+                    </g>
+                  </g>
+                  <defs>
+                    <filter
+                      id="filter0_f_54022_88"
+                      x="-6.8"
+                      y="-6.8"
+                      width="93.6"
+                      height="93.6"
+                      filterUnits="userSpaceOnUse"
+                      color-interpolation-filters="sRGB"
+                    >
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="BackgroundImageFix"
+                        result="shape"
+                      />
+                      <feGaussianBlur
+                        stdDeviation="3.4"
+                        result="effect1_foregroundBlur_54022_88"
+                      />
+                    </filter>
+                    <radialGradient
+                      id="paint0_radial_54022_88"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="userSpaceOnUse"
+                      gradientTransform="translate(40 12.8889) rotate(90) scale(67.1111)"
+                    >
+                      <stop stop-color="#FDDBD2" />
+                      <stop offset="0.331731" stop-color="#FCC6B8" />
+                      <stop offset="1" stop-color="#F9704C" />
+                    </radialGradient>
+                    <radialGradient
+                      id="paint1_radial_54022_88"
+                      cx="0"
+                      cy="0"
+                      r="1"
+                      gradientUnits="userSpaceOnUse"
+                      gradientTransform="translate(40 12.8889) rotate(90) scale(67.1111)"
+                    >
+                      <stop stop-color="#FDDBD2" />
+                      <stop offset="0.331731" stop-color="#FCC6B8" />
+                      <stop offset="1" stop-color="#F9704C" />
+                    </radialGradient>
+                    <linearGradient
+                      id="paint2_linear_54022_88"
+                      x1="40"
+                      y1="0"
+                      x2="40"
+                      y2="80"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#F9704C" />
+                      <stop offset="1" stop-color="#FCB7A5" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
               <h4 className="text-primary-1">Message sent!</h4>
               <p className="text-dark-gray-1">
                 Thanks for reaching out — I&apos;ll get back to you within 24
                 hours.
               </p>
+              <PrimaryButton arrow="left" href="/">
+                Back to Home
+              </PrimaryButton>
             </div>
           ) : (
             <form

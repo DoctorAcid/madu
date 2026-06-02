@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation";
 const NAV_LINKS = [
   { href: "/work", label: "Work" },
   { href: "/#services", label: "Services" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const Header = () => {
@@ -47,11 +46,21 @@ const Header = () => {
       gsap.set(menu, { display: "flex" });
       gsap
         .timeline()
-        .fromTo(menu, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" })
+        .fromTo(
+          menu,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.25, ease: "power2.out" },
+        )
         .fromTo(
           menu.querySelectorAll("[data-item]"),
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power3.out" },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.4,
+            stagger: 0.07,
+            ease: "power3.out",
+          },
           "-=0.1",
         );
     } else {
@@ -66,7 +75,12 @@ const Header = () => {
   }, [menuOpen]);
 
   // Restore scroll on unmount
-  useEffect(() => () => { document.body.style.overflow = ""; }, []);
+  useEffect(
+    () => () => {
+      document.body.style.overflow = "";
+    },
+    [],
+  );
 
   const useDarkNav = pastHero || pathname !== "/";
 
@@ -79,8 +93,8 @@ const Header = () => {
 
   return (
     <>
-      <nav className="z-[999] fixed top-0 left-0 right-0 w-full">
-        <div className="w-full max-w-[1920px] mx-auto px-6 md:px-20 py-6 flex items-center justify-between">
+      <nav className="z-400 fixed top-0 left-0 right-0 w-full">
+        <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/">
             <LogoHeader pastHero={useDarkNav} />
@@ -100,9 +114,7 @@ const Header = () => {
                 />
               </Link>
             ))}
-            <PrimaryButton href="mailto:hello@madushan.design">
-              Let&apos;s Talk
-            </PrimaryButton>
+            <PrimaryButton href="/contact">Let&apos;s Talk</PrimaryButton>
           </div>
 
           {/* Hamburger — mobile only */}
@@ -134,7 +146,7 @@ const Header = () => {
       <div
         ref={menuRef}
         style={{ display: "none" }}
-        className="fixed inset-0 z-[998] bg-primary-5 flex-col items-center justify-center gap-12 md:hidden"
+        className="fixed inset-0 z-[100] bg-primary-5 flex-col items-center justify-center gap-12 md:hidden"
       >
         {NAV_LINKS.map(({ href, label }) => (
           <Link
@@ -148,9 +160,7 @@ const Header = () => {
           </Link>
         ))}
         <div data-item>
-          <PrimaryButton href="mailto:hello@madushan.design">
-            Let&apos;s Talk
-          </PrimaryButton>
+          <PrimaryButton href="/contact">Let&apos;s Talk</PrimaryButton>
         </div>
       </div>
     </>

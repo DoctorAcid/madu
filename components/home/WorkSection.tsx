@@ -91,7 +91,7 @@ const WorkSection = () => {
         </TextReveal>
         <TextReveal delay={0.1} className="w-full max-w-[900px]">
           <h2 className="w-full text-primary-1">
-            Passionate about the craft and little details
+            Built with intention. Shipped with precision.
           </h2>
         </TextReveal>
         <SecondaryButton href="/work" arrow="right">
