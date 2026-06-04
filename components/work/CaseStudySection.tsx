@@ -130,11 +130,34 @@ const CaseStudySection = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ active: false, startY: 0, scrollTop: 0 });
+  // Ref so touch-effect closure always calls the latest snapToNearest
+  const snapToNearestRef = useRef<() => void>(() => {});
+
+  const currentImages = lightbox
+    ? CASESTUDY_DATA[lightbox.caseStudyIndex].images
+    : [];
+  const currentAlt = lightbox
+    ? CASESTUDY_DATA[lightbox.caseStudyIndex].title
+    : "";
+
+  const snapToNearest = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const slideHeight = container.clientHeight;
+    const idx = Math.round(container.scrollTop / slideHeight);
+    const clamped = Math.max(0, Math.min(idx, currentImages.length - 1));
+    container.scrollTo({ top: clamped * slideHeight, behavior: "smooth" });
+  };
+  snapToNearestRef.current = snapToNearest;
 
   const onDragStart = (clientY: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    dragState.current = { active: true, startY: clientY, scrollTop: container.scrollTop };
+    dragState.current = {
+      active: true,
+      startY: clientY,
+      scrollTop: container.scrollTop,
+    };
     document.body.style.cursor = "grabbing";
   };
 
@@ -145,16 +168,11 @@ const CaseStudySection = () => {
   };
 
   const onDragEnd = () => {
+    if (!dragState.current.active) return;
     dragState.current.active = false;
     document.body.style.cursor = "";
+    snapToNearestRef.current();
   };
-
-  const currentImages = lightbox
-    ? CASESTUDY_DATA[lightbox.caseStudyIndex].images
-    : [];
-  const currentAlt = lightbox
-    ? CASESTUDY_DATA[lightbox.caseStudyIndex].title
-    : "";
 
   const navigateLightbox = (dir: 1 | -1) => {
     if (!lightbox) return;
@@ -233,6 +251,43 @@ const CaseStudySection = () => {
     return () => observer.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lightbox?.caseStudyIndex]);
+
+  // Touch drag for mobile — must use imperative listeners so touchmove can be non-passive
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      dragState.current = {
+        active: true,
+        startY: e.touches[0].clientY,
+        scrollTop: container.scrollTop,
+      };
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const { active, startY, scrollTop } = dragState.current;
+      if (!active) return;
+      container.scrollTop = scrollTop - (e.touches[0].clientY - startY);
+    };
+
+    const onTouchEnd = () => {
+      if (!dragState.current.active) return;
+      dragState.current.active = false;
+      snapToNearestRef.current();
+    };
+
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd);
+    return () => {
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [lightboxOpen]);
 
   // ESC to close, arrow keys to navigate
   useEffect(() => {
@@ -407,7 +462,7 @@ const CaseStudySection = () => {
       {lightbox && (
         <div ref={overlayRef} className="fixed inset-0 z-400 bg-black/90">
           {/* Top bar: counter + close */}
-          <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 py-5 bg-linear-to-b from-black/60 to-transparent pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between pl-6 pr-4 md:px-6 py-5 bg-linear-to-b from-black/60 to-transparent pointer-events-none">
             <p
               className="accent-text text-white/50 tabular-nums"
               style={{ fontSize: "14px" }}
@@ -445,9 +500,12 @@ const CaseStudySection = () => {
           {/* Scrollable image strip */}
           <div
             ref={scrollContainerRef}
-            className="h-full overflow-y-scroll snap-y snap-mandatory [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+            className="h-full overflow-y-scroll snap-y snap-mandatory touch-none [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
             style={{ scrollbarWidth: "none" }}
-            onMouseDown={(e) => { e.preventDefault(); onDragStart(e.clientY); }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              onDragStart(e.clientY);
+            }}
             onMouseMove={(e) => onDragMove(e.clientY)}
             onMouseUp={onDragEnd}
             onMouseLeave={onDragEnd}
@@ -470,7 +528,7 @@ const CaseStudySection = () => {
             ))}
           </div>
 
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4">
+          <div className="absolute h-fit right-4 bottom-4 md:top-1/2 md:-translate-y-1/2 z-10 flex flex-col gap-4">
             {/* Prev button */}
             <button
               onClick={() => navigateLightbox(-1)}
