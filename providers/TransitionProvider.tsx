@@ -53,11 +53,56 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
         className="fixed inset-0 flex flex-col pointer-events-none"
         style={{ zIndex: 200 }}
       >
+        {/* <div className="absolute inset-0 flex items-center justify-center">
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="z-200"
+          >
+            <path
+              d="M32 21.7773L16 4H0V57.3319H64V4H48L32 21.7773Z"
+              fill="url(#paint0_linear_54024_2)"
+            />
+            <path
+              d="M0.000793457 57.3319V4H16.0004L63.9991 57.3319H0.000793457Z"
+              fill="url(#paint1_linear_54024_2)"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear_54024_2"
+                x1="32"
+                y1="4"
+                x2="32"
+                y2="57.3319"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#FCB7A5" />
+                <stop offset="1" stop-color="#F74C1F" />
+              </linearGradient>
+              <linearGradient
+                id="paint1_linear_54024_2"
+                x1="31.9999"
+                y1="4"
+                x2="31.9999"
+                y2="57.3319"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#FCB7A5" />
+                <stop offset="1" stop-color="#F9704C" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div> */}
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            ref={(el) => { panelRefs.current[i] = el; }}
-            className="w-full h-1/4 bg-primary-1"
+            ref={(el) => {
+              panelRefs.current[i] = el;
+            }}
+            className="w-full h-1/4 bg-[#F74C1F]"
             style={{ transform: "scaleX(0)", transformOrigin: "left center" }}
           />
         ))}

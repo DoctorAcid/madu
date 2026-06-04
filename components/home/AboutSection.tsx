@@ -80,7 +80,7 @@ const AboutSection = () => {
 
       <div
         ref={containerRef}
-        className="w-full h-[150vh] relative flex items-center justify-center"
+        className="w-full h-screen relative flex items-center justify-center"
       >
         {/* SMALL SOLID SHAPES */}
         <svg

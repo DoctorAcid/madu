@@ -53,10 +53,17 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
     };
     rafId = requestAnimationFrame(raf);
 
+    const onStop = () => lenisRef.current?.stop();
+    const onStart = () => lenisRef.current?.start();
+    window.addEventListener("lenis:stop", onStop);
+    window.addEventListener("lenis:start", onStart);
+
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+      window.removeEventListener("lenis:stop", onStop);
+      window.removeEventListener("lenis:start", onStart);
     };
   }, []);
   return (
