@@ -1,6 +1,13 @@
 "use client";
 
-import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { shaderMaterial, useTrailTexture, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -232,7 +239,16 @@ function Scene({
   const texture = useTexture(image);
 
   // Fires once on mount — which only happens after useTexture's Suspense resolves.
-  useEffect(() => { onReady(); }, []);
+  useEffect(() => {
+    onReady();
+  }, []);
+
+  // useEffect(() => {
+  //   return () => {
+  //     gl.dispose();
+  //     gl.forceContextLoss();
+  //   };
+  // }, [gl]);
 
   const [trail, onMove] = useTrailTexture({
     // 512 instead of 1920 — trail texture is 512×512 = ~1 MB vs 14 MB.
@@ -245,15 +261,22 @@ function Scene({
   }) as [THREE.Texture | null, (e: { uv?: THREE.Vector2 }) => void];
 
   // Dispose trail DataTexture on unmount — R3F doesn't own it so won't free it.
-  useEffect(() => () => { trail?.dispose(); }, [trail]);
+  useEffect(
+    () => () => {
+      trail?.dispose();
+    },
+    [trail],
+  );
 
   // Dispose the loaded image texture on unmount.
   // drei's useTexture caches globally but does NOT free GPU memory automatically.
   // Without this, every navigation leaves an uploaded texture in VRAM.
-  useEffect(() => {
-    const t = texture;
-    return () => { t.dispose(); };
-  }, [texture]);
+  // useEffect(() => {
+  //   const t = texture;
+  //   return () => {
+  //     t.dispose();
+  //   };
+  // }, [texture]);
 
   if (trail) {
     trail.minFilter = THREE.LinearFilter;
@@ -275,10 +298,20 @@ function Scene({
     }
 
     const onLoaderComplete = () => {
-      gsap.to(revealTarget.current, { val: 1, duration: 1.55, ease: "power3.out" });
+      const tween = gsap.to(revealTarget.current, {
+        val: 1,
+        duration: 1.55,
+        ease: "power3.out",
+      });
+
+      return () => {
+        tween?.kill();
+        window.removeEventListener("loader:complete", onLoaderComplete);
+      };
     };
     window.addEventListener("loader:complete", onLoaderComplete);
-    return () => window.removeEventListener("loader:complete", onLoaderComplete);
+    return () =>
+      window.removeEventListener("loader:complete", onLoaderComplete);
   }, []);
 
   // Global listener so the effect works even when the cursor is over text/DOM
@@ -318,7 +351,12 @@ function Scene({
 
   // R3F does not auto-dispose <primitive> objects — do it manually on unmount
   // so the compiled shader program is freed from GPU memory on navigation.
-  useEffect(() => () => { material.dispose(); }, [material]);
+  useEffect(
+    () => () => {
+      material.dispose();
+    },
+    [material],
+  );
 
   if (material) {
     (material.uniforms.pixelColor.value as THREE.Color).set(color);
@@ -374,6 +412,7 @@ export default function PixelTrail({
       )}
       <Canvas
         {...canvasProps}
+        dpr={[1, 1.5]}
         gl={glProps}
         className={`absolute z-1 ${className}`}
         style={{

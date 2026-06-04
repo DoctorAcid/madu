@@ -6,15 +6,21 @@ import gsap from "gsap";
 
 const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const logoRef = useRef<SVGSVGElement>(null);
 
   return (
     <TransitionRouter
       auto
       leave={(next) => {
         const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
+        const logo = logoRef.current;
 
         // Reset to starting state before each leave so rapid navigations stay clean
         gsap.set(panels, { scaleX: 0, x: 0, transformOrigin: "left center" });
+        gsap.set(logo, {
+          opacity: 0,
+          x: -20,
+        });
 
         const tl = gsap.timeline();
 
@@ -24,17 +30,27 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
           duration: 0.45,
           stagger: 0.08,
           ease: "power2.inOut",
-        });
+        }).to(logo, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" });
 
         tl.call(next);
       }}
       enter={(next) => {
         const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
+        const logo = logoRef.current;
 
         const tl = gsap.timeline();
 
         // Each panel slides off to the right — full → 0 from the left edge, staggered
-        tl.to(panels, {
+        tl.to(
+          logo,
+          {
+            opacity: 0,
+            x: 20,
+            duration: 0.32,
+            ease: "power2.in",
+          },
+          0,
+        ).to(panels, {
           x: "100%",
           duration: 0.4,
           stagger: 0.08,
@@ -44,6 +60,7 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
         tl.call(() => {
           // Reset panels to invisible for the next transition
           gsap.set(panels, { scaleX: 0, x: 0 });
+          gsap.set(logo, { opacity: 0, x: -20 });
           next();
         });
       }}
@@ -51,51 +68,54 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
       {/* Transition overlay — 4 stacked panels */}
       <div
         className="fixed inset-0 flex flex-col pointer-events-none"
-        style={{ zIndex: 200 }}
+        style={{ zIndex: 999 }}
       >
-        {/* <div className="absolute inset-0 flex items-center justify-center">
+        <div className="z-10 absolute inset-0 flex items-center justify-center">
+          {/* Logo */}
           <svg
-            width="64"
-            height="64"
-            viewBox="0 0 64 64"
+            ref={logoRef}
+            width="56"
+            height="48"
+            viewBox="0 0 28.8 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="z-200"
+            className="mb-10 opacity-0"
+            aria-hidden="true"
           >
             <path
-              d="M32 21.7773L16 4H0V57.3319H64V4H48L32 21.7773Z"
-              fill="url(#paint0_linear_54024_2)"
+              d="M14.4004 8L7.2002 0H0V24H28.8008V0H21.6006L14.4004 8Z"
+              fill="url(#il-g1)"
             />
             <path
-              d="M0.000793457 57.3319V4H16.0004L63.9991 57.3319H0.000793457Z"
-              fill="url(#paint1_linear_54024_2)"
+              d="M0.000389099 24V0H7.20039L28.8004 24H0.000389099Z"
+              fill="url(#il-g2)"
             />
             <defs>
               <linearGradient
-                id="paint0_linear_54024_2"
-                x1="32"
-                y1="4"
-                x2="32"
-                y2="57.3319"
+                id="il-g1"
+                x1="14.4"
+                y1="0"
+                x2="14.4"
+                y2="24"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FCB7A5" />
-                <stop offset="1" stop-color="#F74C1F" />
+                <stop stopColor="#FCB7A5" />
+                <stop offset="1" stopColor="#F74C1F" />
               </linearGradient>
               <linearGradient
-                id="paint1_linear_54024_2"
-                x1="31.9999"
-                y1="4"
-                x2="31.9999"
-                y2="57.3319"
+                id="il-g2"
+                x1="14.4"
+                y1="0"
+                x2="14.4"
+                y2="24"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FCB7A5" />
-                <stop offset="1" stop-color="#F9704C" />
+                <stop stopColor="#FCB7A5" />
+                <stop offset="1" stopColor="#F9704C" />
               </linearGradient>
             </defs>
           </svg>
-        </div> */}
+        </div>
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}

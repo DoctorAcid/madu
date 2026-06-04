@@ -9,6 +9,8 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import CircularText from "../common/reveals/CircularText";
+import HeroImg from "@/public/assets/images/home/hero.webp";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,12 +57,21 @@ const HeroSection = () => {
         {/* Background Image */}
 
         <div ref={bgRef} className="h-full">
-          <PixelTrail image="/assets/images/home/hero.jpg" />
+          <Image
+            src={HeroImg}
+            fill
+            className="object-cover object-center"
+            sizes="100wv"
+            loading="eager"
+            placeholder="blur"
+            alt="hero-image"
+          />
+          {/* <PixelTrail image="/assets/images/home/hero.webp" /> */}
         </div>
       </div>
 
       <div className="z-10 flex w-full mt-4 md:mt-8 lg:mt-12 pt-20 xl:pt-24 2xl:pt-28 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 justify-between">
-        <ContentReveal delay={0.3} className="flex items-center gap-4 h-fit">
+        <ContentReveal delay={0.5} className="flex items-center gap-4 h-fit">
           <div className="w-[32px] sm:w-[40px] lg:w-[48px] aspect-square shrink-0 flex">
             <DesignDirector />
           </div>
@@ -72,7 +83,7 @@ const HeroSection = () => {
         </ContentReveal>
 
         <ContentReveal
-          delay={0.3}
+          delay={0.5}
           direction="right"
           className="w-[128px] aspect-square hidden md:flex items-center justify-center h-fit -mt-8 relative"
         >
@@ -112,13 +123,13 @@ const HeroSection = () => {
       </div>
 
       <div className="z-10 flex flex-col w-full pb-8 lg:pb-0 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20">
-        <TextReveal>
+        <TextReveal delay={0.6}>
           <h1 className="w-full text-primary-3">Design that works.</h1>
         </TextReveal>
-        <TextReveal delay={0.1}>
+        <TextReveal delay={0.7}>
           <h1 className="w-full text-primary-3 text-right">Code that ships.</h1>
         </TextReveal>
-        <ContentReveal delay={0.2} className="mt-4">
+        <ContentReveal delay={0.8} className="mt-4">
           <p className="max-w-[600px] text-primary-5">
             I'm Madushan — a UI/UX designer and frontend developer crafting
             clean, conversion-focused digital products for startups and brands
