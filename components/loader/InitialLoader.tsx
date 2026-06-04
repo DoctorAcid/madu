@@ -42,7 +42,7 @@ const InitialLoader = () => {
       (window as typeof window & { __loaderDone?: boolean }).__loaderDone =
         true;
       window.dispatchEvent(new Event("loader:complete"));
-      setIsVisible(false); // Change to false when testing is over
+      setIsVisible(true); // Change to false when testing is over
     }
   }, []);
 
@@ -92,7 +92,7 @@ const InitialLoader = () => {
         (window as typeof window & { __loaderDone?: boolean }).__loaderDone =
           true;
         window.dispatchEvent(new Event("loader:complete"));
-        setIsVisible(false); // Change to false when testing is over
+        setIsVisible(true); // Change to false when testing is over
       },
     });
 

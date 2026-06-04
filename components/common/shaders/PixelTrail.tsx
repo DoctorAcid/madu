@@ -142,40 +142,56 @@ const GrainTrailMaterial = shaderMaterial(
     vec2 offset3 = liquidDistortion - vec2(aberration, 0.0);
 
     // ── Reveal: zoom-out + 3D glass chromatic aberration ──────────────────
-    // uReveal: 0 = loader just finished (zoomed/aberrated), 1 = fully revealed
-    float revealZoom   = mix(1.22, 1.0, uReveal);
-    vec2  zCenter      = vec2(0.5);
-    vec2  zoomedFinal  = (finalUV    - zCenter) / revealZoom + zCenter;
-    vec2  zoomedRefr   = (refractedUV - zCenter) / revealZoom + zCenter;
+    // uReveal: 0 = loader just finished (zoomed/aberrated), 1 = fully revealed.
+    //
+    // CRITICAL PERFORMANCE BRANCH: when fully revealed (uReveal > 0.999) we fall
+    // back to the original single-sample-per-channel path (4 fetches total).
+    // The multi-sample path (10 fetches) only runs during the ~1.5 s reveal
+    // animation. Without this branch, steady-state GPU cost is 3× higher and
+    // causes context loss (TDR) on integrated / low-end GPUs.
+    float r;
+    float g_tex;
+    float b;
+    float a;
 
-    // Radial motion-blur: samples streak outward while zoom recedes
-    vec2 radialBlur = (finalUV - zCenter) * (1.0 - uReveal) * 0.045;
+    if (uReveal > 0.999) {
+      // Steady state — identical to original shader
+      r     = texture2D(uTexture, coverUV(finalUV + offset1)).r;
+      g_tex = texture2D(uTexture, coverUV(finalUV + offset2)).g;
+      b     = texture2D(uTexture, coverUV(finalUV + offset3)).b;
+      a     = texture2D(uTexture, coverUV(refractedUV)).a;
+    } else {
+      // Reveal animation: zoom-out + radial motion blur + 3D glass CA
+      float revealZoom  = mix(1.22, 1.0, uReveal);
+      vec2  zCenter     = vec2(0.5);
+      vec2  zoomedFinal = (finalUV     - zCenter) / revealZoom + zCenter;
+      vec2  zoomedRefr  = (refractedUV - zCenter) / revealZoom + zCenter;
+      vec2  radialBlur  = (finalUV - zCenter) * (1.0 - uReveal) * 0.045;
+      float glassCA     = (1.0 - uReveal) * 0.018;
 
-    // Extra chromatic aberration — the "3D glass lens pop" on reveal
-    float glassCA = (1.0 - uReveal) * 0.018;
+      r     = texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0))).r * 0.60
+            + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur * 0.5)).r * 0.28
+            + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur)).r * 0.12;
 
-    float r     = texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0))).r * 0.60
-                + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur * 0.5)).r * 0.28
-                + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur)).r * 0.12;
+      g_tex = texture2D(uTexture, coverUV(zoomedFinal + offset2)).g * 0.60
+            + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur * 0.5)).g * 0.28
+            + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur)).g * 0.12;
 
-    float g_tex = texture2D(uTexture, coverUV(zoomedFinal + offset2)).g * 0.60
-                + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur * 0.5)).g * 0.28
-                + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur)).g * 0.12;
+      b     = texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0))).b * 0.60
+            + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur * 0.5)).b * 0.28
+            + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur)).b * 0.12;
 
-    float b     = texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0))).b * 0.60
-                + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur * 0.5)).b * 0.28
-                + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur)).b * 0.12;
+      a     = texture2D(uTexture, coverUV(zoomedRefr)).a;
+    }
 
     vec3 chromaticColor = vec3(r, g_tex, b);
     vec3 grainColor = grain * vec3(0.02);
     vec3 color = chromaticColor + grainColor + vec3(fresnel * 0.1);
     color += vec3(strength * 0.01);
 
-    // Edge vignette that burns off as the image reveals
+    // Vignette: maths reduce to ×1.0 when uReveal=1, so no branch needed
     float vignetteDist = length(vUv - 0.5) * 2.0;
     color *= 1.0 - (1.0 - uReveal) * smoothstep(0.0, 1.0, vignetteDist) * 0.55;
-
-    float a = texture2D(uTexture, coverUV(zoomedRefr)).a;
 
     gl_FragColor = vec4(color, a);
   }
@@ -230,6 +246,14 @@ function Scene({
 
   // Dispose trail DataTexture on unmount — R3F doesn't own it so won't free it.
   useEffect(() => () => { trail?.dispose(); }, [trail]);
+
+  // Dispose the loaded image texture on unmount.
+  // drei's useTexture caches globally but does NOT free GPU memory automatically.
+  // Without this, every navigation leaves an uploaded texture in VRAM.
+  useEffect(() => {
+    const t = texture;
+    return () => { t.dispose(); };
+  }, [texture]);
 
   if (trail) {
     trail.minFilter = THREE.LinearFilter;
