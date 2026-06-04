@@ -4,6 +4,7 @@ import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } fr
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { shaderMaterial, useTrailTexture, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import gsap from "gsap";
 
 interface PixelTrailProps {
   image: string;
@@ -51,6 +52,7 @@ const GrainTrailMaterial = shaderMaterial(
     pixelColor: new THREE.Color("#ffffff"),
     uTime: 0,
     uAspect: new THREE.Vector2(1, 1),
+    uReveal: 0,
   },
   /* vertex shader */ `
   varying vec2 vUv;
@@ -66,6 +68,7 @@ const GrainTrailMaterial = shaderMaterial(
   uniform vec3 pixelColor;
   uniform float uTime;
   uniform vec2 uAspect;
+  uniform float uReveal;
 
   varying vec2 vUv;
 
@@ -138,16 +141,41 @@ const GrainTrailMaterial = shaderMaterial(
     vec2 offset2 = liquidDistortion;
     vec2 offset3 = liquidDistortion - vec2(aberration, 0.0);
 
-    float r     = texture2D(uTexture, coverUV(finalUV + offset1)).r;
-    float g_tex = texture2D(uTexture, coverUV(finalUV + offset2)).g;
-    float b     = texture2D(uTexture, coverUV(finalUV + offset3)).b;
+    // ── Reveal: zoom-out + 3D glass chromatic aberration ──────────────────
+    // uReveal: 0 = loader just finished (zoomed/aberrated), 1 = fully revealed
+    float revealZoom   = mix(1.22, 1.0, uReveal);
+    vec2  zCenter      = vec2(0.5);
+    vec2  zoomedFinal  = (finalUV    - zCenter) / revealZoom + zCenter;
+    vec2  zoomedRefr   = (refractedUV - zCenter) / revealZoom + zCenter;
+
+    // Radial motion-blur: samples streak outward while zoom recedes
+    vec2 radialBlur = (finalUV - zCenter) * (1.0 - uReveal) * 0.045;
+
+    // Extra chromatic aberration — the "3D glass lens pop" on reveal
+    float glassCA = (1.0 - uReveal) * 0.018;
+
+    float r     = texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0))).r * 0.60
+                + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur * 0.5)).r * 0.28
+                + texture2D(uTexture, coverUV(zoomedFinal + offset1 + vec2( glassCA, 0.0) + radialBlur)).r * 0.12;
+
+    float g_tex = texture2D(uTexture, coverUV(zoomedFinal + offset2)).g * 0.60
+                + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur * 0.5)).g * 0.28
+                + texture2D(uTexture, coverUV(zoomedFinal + offset2 + radialBlur)).g * 0.12;
+
+    float b     = texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0))).b * 0.60
+                + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur * 0.5)).b * 0.28
+                + texture2D(uTexture, coverUV(zoomedFinal + offset3 - vec2( glassCA, 0.0) + radialBlur)).b * 0.12;
 
     vec3 chromaticColor = vec3(r, g_tex, b);
     vec3 grainColor = grain * vec3(0.02);
     vec3 color = chromaticColor + grainColor + vec3(fresnel * 0.1);
     color += vec3(strength * 0.01);
 
-    float a = texture2D(uTexture, coverUV(refractedUV)).a;
+    // Edge vignette that burns off as the image reveals
+    float vignetteDist = length(vUv - 0.5) * 2.0;
+    color *= 1.0 - (1.0 - uReveal) * smoothstep(0.0, 1.0, vignetteDist) * 0.55;
+
+    float a = texture2D(uTexture, coverUV(zoomedRefr)).a;
 
     gl_FragColor = vec4(color, a);
   }
@@ -181,6 +209,9 @@ function Scene({
   const mouseUV = useRef(new THREE.Vector2(0.5, 0.5));
   // Reuse a single Vector2 for onMove to avoid allocating on every pointermove.
   const moveUV = useRef(new THREE.Vector2());
+  // Reveal progress: 0 = zoomed/aberrated (loader just finished), 1 = fully revealed.
+  // Always start at 0. The reveal useEffect below decides the speed (animated vs instant).
+  const revealTarget = useRef({ val: 0 });
 
   const texture = useTexture(image);
 
@@ -207,6 +238,25 @@ function Scene({
     trail.wrapT = THREE.ClampToEdgeWrapping;
   }
 
+  // Drive the zoom-out reveal when the initial loader finishes.
+  useEffect(() => {
+    type W = typeof window & { __loaderDone?: boolean };
+
+    // Race-condition guard: loader already dispatched the event before we mounted
+    // (common on repeat visits where the loader is hidden immediately).
+    // In that case skip straight to fully revealed with no animation.
+    if ((window as W).__loaderDone) {
+      revealTarget.current.val = 1;
+      return;
+    }
+
+    const onLoaderComplete = () => {
+      gsap.to(revealTarget.current, { val: 1, duration: 1.55, ease: "power3.out" });
+    };
+    window.addEventListener("loader:complete", onLoaderComplete);
+    return () => window.removeEventListener("loader:complete", onLoaderComplete);
+  }, []);
+
   // Global listener so the effect works even when the cursor is over text/DOM
   // elements that sit above the canvas. UV is computed directly from screen coords.
   useEffect(() => {
@@ -227,6 +277,7 @@ function Scene({
     if (matRef.current) {
       matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
       matRef.current.uniforms.uMouse.value.copy(mouseUV.current);
+      matRef.current.uniforms.uReveal.value = revealTarget.current.val;
     }
   });
 
@@ -251,6 +302,7 @@ function Scene({
     material.uniforms.uTexture.value = texture;
     material.uniforms.uMouse.value.copy(mouseUV.current);
     material.uniforms.uAspect.value.set(viewAspect, imageAspect);
+    material.uniforms.uReveal.value = revealTarget.current.val;
     material.transparent = true;
   }
 

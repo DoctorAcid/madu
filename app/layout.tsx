@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Wrapper from "@/layout/Wrapper";
 import TransitionProvider from "@/providers/TransitionProvider";
+import InitialLoader from "@/components/loader/InitialLoader";
 
 const Nohemi = localFont({
   src: "../public/assets/fonts/Nohemi-SemiBold.ttf",
@@ -87,6 +88,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <InitialLoader />
         <TransitionProvider>
           <Wrapper>{children}</Wrapper>
         </TransitionProvider>
