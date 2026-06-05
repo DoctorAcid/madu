@@ -113,10 +113,10 @@ const Footer = () => {
               </h6>
             </div>
 
-            <h6 className="text-right text-primary-5">
+            {/* <h6 className="text-right text-primary-5">
               DA Studio <br />{" "}
               <span className="text-primary-3">[Coming Soon]</span>
-            </h6>
+            </h6> */}
           </div>
           <div className="w-full h-0.5 bg-primary-3" />
           <div className="flex items-center justify-between w-full gap-4 sm:gap-6 md:gap-8 lg:gap-10 py-4 lg:py-6 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
