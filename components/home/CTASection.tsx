@@ -72,7 +72,7 @@ const CTASection = () => {
           </svg>
         </div>
 
-        <div className="shape-container-2 w-full flex flex-col gap-4 px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 py-10 md:py-12 lg:py-16 xl:py-18 2xl:py-20 bg-white">
+        <div className="shape-container w-full flex flex-col gap-4 px-8 md:px-10 lg:px-12 xl:px-14 2xl:px-16 py-10 md:py-12 lg:py-16 xl:py-18 2xl:py-20 bg-white">
           <TextReveal>
             <p className="eyebrow text-dark-gray-1">Got a project in mind?</p>
           </TextReveal>

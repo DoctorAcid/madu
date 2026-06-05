@@ -145,17 +145,3 @@ textarea, input {
   /* background-color: var(--background); */
   border-radius: 16px;
 }
-
-.shape-container {
-  /* Triangle cut on bottom-right */
-  clip-path: polygon(
-    100px 0,                  /* after top-left cut */
-    100% 0,                   /* top-right */
-    100% calc(100% - 100px),  /* before bottom-right cut */
-    calc(100% - 100px) 100%,  /* bottom-right cut point */
-    0 100%,                   /* bottom-left */
-    0 100px                   /* top-left cut point */
-  );
-  /* background-color: var(--background); */
-  border-radius: 16px;
-}
