@@ -5,6 +5,7 @@ import "./globals.css";
 import Wrapper from "@/layout/Wrapper";
 import TransitionProvider from "@/providers/TransitionProvider";
 import InitialLoader from "@/components/loader/InitialLoader";
+import ClarityAnalytics from "@/components/common/ClarityAnalytics";
 
 const Nohemi = localFont({
   src: "../public/assets/fonts/Nohemi-SemiBold.ttf",
@@ -65,6 +66,7 @@ export const viewport: Viewport = {
 };
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 export default function RootLayout({
   children,
@@ -88,6 +90,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        {CLARITY_ID && <ClarityAnalytics projectId={CLARITY_ID} />}
         <InitialLoader />
         <TransitionProvider>
           <Wrapper>{children}</Wrapper>

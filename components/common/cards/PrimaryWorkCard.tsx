@@ -48,16 +48,89 @@ const PrimaryWorkCard = ({ item }: PrimaryWorkCardProps) => {
         <div className="eyebrow text-dark-gray-1">
           <span className="text-primary-1">// </span>0{item.id}
         </div>
-        <div className="w-full aspect-video relative rounded-2xl overflow-hidden">
-          <div
-            ref={imgRef}
-            style={{
-              clipPath: "polygon(0% 0%, -50% 0%, 0% 100%, 0% 100%)",
-            }}
-            className="z-10 w-full h-full absolute overflow-hidden"
-          >
+        <div className="relative">
+          <div className="z-10 absolute right-0 bottom-[70px]">
+            <svg
+              width="29"
+              height="69"
+              viewBox="0 0 29 69"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="fill-primary-5 transition-all ease-out duration-300"
+            >
+              <path
+                d="M29 40.2949L0.294922 69H0.175781C17.8359 51.551 28.8307 27.3729 29 0.625V40.2949Z"
+                fill=""
+              />
+            </svg>
+          </div>
+
+          <div className="z-10 absolute -bottom-[1px] right-[70px]">
+            <svg
+              width="69"
+              height="29"
+              viewBox="0 0 69 29"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="fill-primary-5 transition-all ease-out duration-300"
+            >
+              <path
+                d="M40.6794 28.4337H0.0842451L0 28.3494C24.8259 28.4987 49.6969 19.1767 68.7302 0.382812L40.6794 28.4337Z"
+                fill=""
+              />
+            </svg>
+          </div>
+
+          <div className="z-10 absolute -top-[1px] left-[70px]">
+            <svg
+              width="69"
+              height="30"
+              viewBox="0 0 69 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="fill-primary-5 transition-all ease-out duration-300"
+            >
+              <path
+                d="M28.9131 0.984375L0.208008 29.6895L0.208008 29.8086C17.657 12.1485 41.8351 1.15368 68.583 0.984375L28.9131 0.984375Z"
+                fill=""
+              />
+            </svg>
+          </div>
+
+          <div className="z-10 absolute top-[70px] -left-[1px]">
+            <svg
+              width="29"
+              height="69"
+              viewBox="0 0 29 69"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="fill-primary-5 transition-all ease-out duration-300"
+            >
+              <path
+                d="M0.339844 28.0938L0.339846 68.6889L0.424091 68.7732C0.2748 43.9473 9.59679 19.0763 28.3907 0.0429688L0.339844 28.0938Z"
+                fill=""
+              />
+            </svg>
+          </div>
+          <div className="shape-container w-full aspect-video relative rounded-2xl overflow-hidden">
+            <div
+              ref={imgRef}
+              style={{
+                clipPath: "polygon(0% 0%, -50% 0%, 0% 100%, 0% 100%)",
+              }}
+              className="z-10 w-full h-full absolute overflow-hidden"
+            >
+              <Image
+                src={item.hoverImage}
+                alt={item.title}
+                fill
+                className="object-cover object-center"
+                sizes="(min-width: 1024px) 100vw, 50vw"
+                loading="lazy"
+              />
+            </div>
             <Image
-              src={item.hoverImage}
+              src={item.image}
               alt={item.title}
               fill
               className="object-cover object-center"
@@ -65,14 +138,6 @@ const PrimaryWorkCard = ({ item }: PrimaryWorkCardProps) => {
               loading="lazy"
             />
           </div>
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover object-center"
-            sizes="(min-width: 1024px) 100vw, 50vw"
-            loading="lazy"
-          />
         </div>
         <div className="flex justify-between gap-8">
           <div className="flex flex-col gap-4">
