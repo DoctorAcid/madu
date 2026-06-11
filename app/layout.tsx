@@ -14,7 +14,7 @@ const Nohemi = localFont({
 });
 
 const GogaSemiBold = localFont({
-  src: "../public/assets/fonts/Goga-Semibold.woff2",
+  src: "../public/assets/fonts/Goga-SemiBold.woff2",
   variable: "--font-gogaSemiBold",
   display: "swap",
 });
