@@ -6,6 +6,8 @@ import Link from "next/link";
 import Fiverr from "@/components/common/buttons/social/Fiverr";
 import Upwork from "@/components/common/buttons/social/Upwork";
 import PrimaryButton from "@/components/common/buttons/PrimaryButton";
+import TextReveal from "@/components/common/reveals/TextReveal";
+import ContentReveal from "@/components/common/reveals/ContentReveal";
 
 type FormData = {
   name: string;
@@ -180,8 +182,14 @@ const ContactPage = () => {
             <Link href="mailto:hello@madushan.design">
               <div className="group flex flex-col w-full cursor-pointer">
                 <div className="w-full flex items-center justify-between">
-                  <h1 className="display-2 text-black-2">Hello</h1>
-                  <div className="hidden md:flex relative items-center justify-center w-20 aspect-square overflow-hidden">
+                  <TextReveal delay={0.6}>
+                    <h1 className="display-2 text-black-2">Hello</h1>
+                  </TextReveal>
+                  <ContentReveal
+                    direction="down"
+                    delay={0.6}
+                    className="hidden md:flex relative items-center justify-center w-20 aspect-square overflow-hidden"
+                  >
                     <svg
                       width="80"
                       height="80"
@@ -203,7 +211,7 @@ const ContactPage = () => {
                     >
                       <path d="M4 67.9504L49.2788 22.6716C50.9459 21.0045 50.9459 18.3016 49.2788 16.6344C48.4453 15.8009 47.3527 15.3846 46.2602 15.3846H29.715V4H75.998V4.00197H76V50.285H64.6154V33.7398C64.6154 32.6473 64.1991 31.5547 63.3656 30.7212C61.6984 29.0541 58.9955 29.0541 57.3284 30.7212L12.0496 76L4 67.9504Z" />
                     </svg>
-                  </div>
+                  </ContentReveal>
 
                   <div className="md:hidden relative items-center justify-center w-14 aspect-square overflow-hidden">
                     <svg
@@ -218,19 +226,30 @@ const ContactPage = () => {
                     </svg>
                   </div>
                 </div>
-                <h1 className="display-4 w-full text-black-2 group-hover:text-primary-1 transition-all duration-200">
-                  @madushan
-                </h1>
-                <h1 className="display-2 w-full text-right text-black-2">
-                  .design
-                </h1>
+                <TextReveal delay={0.6}>
+                  <h1 className="display-4 w-full text-black-2 group-hover:text-primary-1 transition-all duration-200">
+                    @madushan
+                  </h1>
+                </TextReveal>
+                <TextReveal delay={0.6}>
+                  <h1 className="display-2 w-full text-right text-black-2">
+                    .design
+                  </h1>
+                </TextReveal>
               </div>
             </Link>
-            <p className="max-w-[600px] text-dark-gray-1">
-              Whether you have a detailed brief or just an early idea — I&apos;d
-              love to hear about it. I typically reply within 24 hours.
-            </p>
-            <div className="flex items-center gap-2 bg-white w-fit px-4 py-3 rounded-lg">
+            <TextReveal delay={1} splitBy="words">
+              <p className="max-w-[600px] text-dark-gray-1">
+                Whether you have a detailed brief or just an early idea —
+                I&apos;d love to hear about it. I typically reply within 24
+                hours.
+              </p>
+            </TextReveal>
+            <ContentReveal
+              delay={1}
+              direction="down"
+              className="flex items-center gap-2 bg-white w-fit px-4 py-3 rounded-lg"
+            >
               <svg
                 width="20"
                 height="20"
@@ -254,9 +273,13 @@ const ContactPage = () => {
                   24 hours
                 </p>
               </div>
-            </div>
+            </ContentReveal>
 
-            <div className="flex flex-col gap-2 h-full justify-end">
+            <ContentReveal
+              delay={1}
+              direction="down"
+              className="flex flex-col gap-2 h-full justify-end"
+            >
               <p className="eyebrow text-black-2" style={{ fontSize: "14px" }}>
                 Or hire me on
               </p>
@@ -264,12 +287,16 @@ const ContactPage = () => {
                 <Upwork className="fill-primary-2 group-hover:fill-primary-1" />
                 <Fiverr className="fill-primary-2 group-hover:fill-primary-1" />
               </div>
-            </div>
+            </ContentReveal>
           </div>
         </div>
 
         {/* FORM */}
-        <div className="col-span-1 w-full flex items-end ">
+        <ContentReveal
+          direction="right"
+          delay={1}
+          className="col-span-1 w-full flex items-end "
+        >
           {status === "sent" ? (
             <div className="flex flex-col gap-4 w-full h-full items-center justify-center text-center">
               <div className="flex items-center justify-center mb-2">
@@ -491,7 +518,7 @@ const ContactPage = () => {
               </div>
             </form>
           )}
-        </div>
+        </ContentReveal>
       </div>
     </section>
   );
