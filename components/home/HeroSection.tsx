@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import PixelTrail from "../common/shaders/PixelTrail";
 import DesignDirector from "@/public/assets/svg/DesignDirector";
 import TextReveal from "../common/reveals/TextReveal";
 import ContentReveal from "../common/reveals/ContentReveal";
@@ -11,9 +10,6 @@ import { motion } from "framer-motion";
 import CircularText from "../common/reveals/CircularText";
 import HeroImg from "@/public/assets/images/home/hero.webp";
 import Image from "next/image";
-import ShaderBrush from "../common/shaders/ShaderBrush";
-import RippleGrid from "../common/shaders/RippleGrid";
-import RippleImage from "../common/shaders/RippleImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
