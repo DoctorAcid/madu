@@ -312,7 +312,7 @@ const CaseStudySection = () => {
   };
 
   return (
-    <section className="grid grid-cols-12 w-full gap-6 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 relative">
+    <section className="grid grid-cols-12 w-full gap-6 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 relative overflow-hidden">
       {/* Pagination */}
       <div className="col-span-2 hidden md:flex h-screen flex-col sticky top-0 justify-center gap-4">
         {PAGENATION_LIST.map((name, index) => (
