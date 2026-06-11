@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PrimaryBadge from "../common/badges/PrimaryBadge";
+import ContentReveal from "../common/reveals/ContentReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -372,84 +373,107 @@ const CaseStudySection = () => {
               >
                 {/* Meta row */}
                 <div className="flex flex-col md:flex-row gap-8 w-full">
-                  <div className="w-full flex flex-col gap-2">
+                  <ContentReveal
+                    direction="down"
+                    delay={0.1}
+                    className="w-full flex flex-col gap-2"
+                  >
                     <p className="eyebrow text-dark-gray-2">//0{item.id}</p>
                     <h5 className="text-primary-1">{item.title}</h5>
                     <p className="eyebrow text-black-1">{item.year}</p>
-                  </div>
-                  <div className="w-full flex flex-col gap-2">
+                  </ContentReveal>
+                  <ContentReveal
+                    direction="down"
+                    delay={0.15}
+                    className="w-full flex flex-col gap-2"
+                  >
                     <p className="text-black-1">Challenge</p>
                     <p className="text-dark-gray-1">{item.challenge}</p>
-                  </div>
-                  <div className="w-full flex flex-row flex-wrap md:flex-col gap-2">
+                  </ContentReveal>
+                  <ContentReveal
+                    direction="down"
+                    delay={0.2}
+                    className="w-full flex flex-row flex-wrap md:flex-col gap-2"
+                  >
                     {item.keywords.map((keyword, i) => (
                       <PrimaryBadge key={i} text={keyword} />
                     ))}
-                  </div>
-                  <div className="w-full flex flex-col gap-2">
+                  </ContentReveal>
+                  <ContentReveal
+                    direction="down"
+                    delay={0.25}
+                    className="w-full flex flex-col gap-2"
+                  >
                     <p className="text-black-1">Role</p>
                     <p className="text-dark-gray-1">{item.role}</p>
-                  </div>
+                  </ContentReveal>
                 </div>
 
                 {/* Bento grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 md:gap-2 lg:gap-3">
                   {item.images.map((image, i) => (
-                    <div
+                    <ContentReveal
                       key={i}
-                      onClick={() =>
-                        setLightbox({ caseStudyIndex: index, imageIndex: i })
-                      }
+                      direction="spcl"
+                      start={100}
+                      delay={i * 0.1}
+                      blur="blur(0px)"
                       className={`${COL[pattern[i]]} h-80 md:h-100 lg:h-120 relative overflow-hidden rounded-lg md:rounded-2xl group cursor-pointer`}
                     >
-                      <div className="z-1 flex items-center justify-center absolute inset-0 bg-transparent group-hover:bg-black/30 backdrop-blur-0 group-hover:backdrop-blur-md transition-all duration-300">
-                        <div className="w-12 h-12 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out">
-                          <svg
-                            width="48"
-                            height="48"
-                            viewBox="0 0 48 48"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M2 10V6C2 3.79086 3.79086 2 6 2H10"
-                              stroke="#FFEEE9"
-                              strokeWidth="2"
-                            />
-                            <path
-                              d="M2 38V42C2 44.2091 3.79086 46 6 46H10"
-                              stroke="#FFEEE9"
-                              strokeWidth="2"
-                            />
-                            <path
-                              d="M46 10V6C46 3.79086 44.2091 2 42 2H38"
-                              stroke="#FFEEE9"
-                              strokeWidth="2"
-                            />
-                            <path
-                              d="M46 38V42C46 44.2091 44.2091 46 42 46H38"
-                              stroke="#FFEEE9"
-                              strokeWidth="2"
-                            />
-                            <path
-                              d="M27 27L33 33M22 29C18.134 29 15 25.866 15 22C15 18.134 18.134 15 22 15C25.866 15 29 18.134 29 22C29 25.866 25.866 29 22 29Z"
-                              stroke="#FFEEE9"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                      <div
+                        onClick={() =>
+                          setLightbox({ caseStudyIndex: index, imageIndex: i })
+                        }
+                      >
+                        <div className="z-1 flex items-center justify-center absolute inset-0 bg-transparent group-hover:bg-black/30 backdrop-blur-0 group-hover:backdrop-blur-md transition-all duration-300">
+                          <div className="w-12 h-12 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-in-out">
+                            <svg
+                              width="48"
+                              height="48"
+                              viewBox="0 0 48 48"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M2 10V6C2 3.79086 3.79086 2 6 2H10"
+                                stroke="#FFEEE9"
+                                strokeWidth="2"
+                              />
+                              <path
+                                d="M2 38V42C2 44.2091 3.79086 46 6 46H10"
+                                stroke="#FFEEE9"
+                                strokeWidth="2"
+                              />
+                              <path
+                                d="M46 10V6C46 3.79086 44.2091 2 42 2H38"
+                                stroke="#FFEEE9"
+                                strokeWidth="2"
+                              />
+                              <path
+                                d="M46 38V42C46 44.2091 44.2091 46 42 46H38"
+                                stroke="#FFEEE9"
+                                strokeWidth="2"
+                              />
+                              <path
+                                d="M27 27L33 33M22 29C18.134 29 15 25.866 15 22C15 18.134 18.134 15 22 15C25.866 15 29 18.134 29 22C29 25.866 25.866 29 22 29Z"
+                                stroke="#FFEEE9"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
                         </div>
+                        <Image
+                          src={image}
+                          alt={item.title}
+                          fill
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                          sizes="(min-width: 1280px) 60vw, 80vw"
+                          loading="lazy"
+                        />
                       </div>
-                      <Image
-                        src={image}
-                        alt={item.title}
-                        fill
-                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                        sizes="(min-width: 1280px) 60vw, 80vw"
-                        loading="lazy"
-                      />
-                    </div>
+                    </ContentReveal>
                   ))}
                 </div>
               </div>

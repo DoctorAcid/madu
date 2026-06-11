@@ -14,13 +14,13 @@ const Nohemi = localFont({
 });
 
 const GogaSemiBold = localFont({
-  src: "../public/assets/fonts/GogaTest-Semibold.otf",
+  src: "../public/assets/fonts/Goga-Semibold.woff2",
   variable: "--font-gogaSemiBold",
   display: "swap",
 });
 
 const GogaBold = localFont({
-  src: "../public/assets/fonts/GogaTest-Bold.otf",
+  src: "../public/assets/fonts/Goga-Bold.woff2",
   variable: "--font-gogaBold",
   display: "swap",
 });

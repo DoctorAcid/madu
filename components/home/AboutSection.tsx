@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { rotate } from "three/tsl";
 import ContentReveal from "../common/reveals/ContentReveal";
+import ScrollReveal from "../common/reveals/ScrollReveal";
+import TextReveal from "../common/reveals/TextReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,15 +68,31 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section className="w-full flex flex-col max-w-[1920px] mx-auto overflow-hidden">
-      <div className="w-full flex px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-40">
-        <div className="max-w-[1024px] mx-auto">
-          <ContentReveal direction="down">
-            <h1 className="text-center">
-              <span className="text-primary-1">7+ years</span> making brands
-              unique
-            </h1>
-          </ContentReveal>
+    <section className="relative w-full flex flex-col max-w-[1920px] mx-auto overflow-hidden py-20">
+      <div className="z-10 absolute bottom-0 left-0 right-0 w-full h-20 bg-linear-to-t from-primary-5 to-transparent" />
+      <div className="z-10 absolute w-full flex px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-40">
+        <div className="relative max-w-[1024px] mx-auto flex flex-col">
+          {/* <ContentReveal direction="down"> */}
+          <ScrollReveal
+            containerClassName="pb-120"
+            fromColor="rgba(249,112,76,1)"
+            toColor="rgba(45,45,45,1)"
+          >
+            7+ years making brands unique
+          </ScrollReveal>
+          {/* </ContentReveal> */}
+        </div>
+        <div className="absolute bottom-40 right-0 w-full flex justify-end px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
+          <TextReveal className=" max-w-[600px]" splitBy="words">
+            <p className="text-black-2">
+              I started in design, fell in love with code, and never saw a
+              reason to choose between them. That combination — understanding
+              both sides of how a product gets made — is what I bring to every
+              project. Over 7 years I've worked with brands across industries,
+              from industrial SaaS to consumer e-commerce, always with the same
+              focus: work that holds up under scrutiny and earns results.
+            </p>
+          </TextReveal>
         </div>
       </div>
 
@@ -164,7 +182,7 @@ const AboutSection = () => {
           viewBox="0 0 415 415"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[415px] lg:h-[415px] right-[5%] bottom-[20%] z-3 rotate-220"
+          className="absolute w-[200px] h-[200px] md:w-[320px] md:h-[320px] lg:w-[415px] lg:h-[415px] right-[-10%] bottom-[20%] z-3 rotate-220"
         >
           <rect
             width="415"
@@ -249,7 +267,7 @@ const AboutSection = () => {
           viewBox="0 0 553 553"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute w-[320px] h-[320px] lg:w-[553px] lg:h-[553px] left-[-30%] md:left-[-20%] lg:left-[10%] top-[30%] lg:top-[15%]"
+          className="absolute w-[320px] h-[320px] lg:w-[553px] lg:h-[553px] left-[-30%] md:left-[-20%] lg:left-[5%] top-[30%] lg:top-[15%]"
         >
           <rect
             width="553"

@@ -21,7 +21,7 @@ const SecondaryButton = ({
   return (
     <Link href={href || ""}>
       <button
-        className={`group flex items-center gap-4 button-text text-black-1 bg-white hover:text-primary-1 hover:bg-black-1 transition-colors duration-300 rounded-full outline-none cursor-pointer py-4 ${arrow === "right" ? "pl-8 pr-6 " : arrow === "left" ? "pl-6 pr-8 " : "px-8"} ${className}`}
+        className={`group text-nowrap flex items-center gap-4 button-text text-black-1 bg-white hover:text-primary-1 hover:bg-black-1 transition-colors duration-300 rounded-full outline-none cursor-pointer py-4 ${arrow === "right" ? "pl-8 pr-6 " : arrow === "left" ? "pl-6 pr-8 " : "px-8"} ${className}`}
       >
         {arrow === "left" && (
           <ArrowLeftSvg className="stroke-black-1 group-hover:stroke-primary-1" />

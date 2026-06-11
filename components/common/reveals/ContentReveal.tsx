@@ -9,7 +9,8 @@ interface ContentRevealProps {
   delay?: number;
   duration?: number;
   className?: string;
-  direction?: "left" | "right" | "up" | "down";
+  direction?: "left" | "right" | "up" | "down" | "spcl";
+  blur?: string;
 }
 
 const ContentReveal = ({
@@ -19,6 +20,7 @@ const ContentReveal = ({
   duration = 0.6,
   className = "",
   direction = "left",
+  blur = "blur(16px)",
 }: ContentRevealProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
@@ -27,9 +29,23 @@ const ContentReveal = ({
       ref={ref}
       initial={{
         opacity: 0,
-        filter: "blur(16px)",
-        x: direction === "left" ? -start : direction === "right" ? start : 0,
-        y: direction === "down" ? start : direction === "up" ? -start : 0,
+        filter: blur,
+        x:
+          direction === "left"
+            ? -start
+            : direction === "right"
+              ? start
+              : direction === "spcl"
+                ? start * 0.5
+                : 0,
+        y:
+          direction === "down"
+            ? start
+            : direction === "up"
+              ? -start
+              : direction === "spcl"
+                ? start
+                : 0,
       }}
       animate={isInView ? { opacity: 1, filter: "blur(0px)", x: 0, y: 0 } : {}}
       transition={{ delay, duration, ease: "easeOut" }}

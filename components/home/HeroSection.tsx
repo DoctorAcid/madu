@@ -11,6 +11,9 @@ import { motion } from "framer-motion";
 import CircularText from "../common/reveals/CircularText";
 import HeroImg from "@/public/assets/images/home/hero.webp";
 import Image from "next/image";
+import ShaderBrush from "../common/shaders/ShaderBrush";
+import RippleGrid from "../common/shaders/RippleGrid";
+import RippleImage from "../common/shaders/RippleImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,7 +54,7 @@ const HeroSection = () => {
     <section
       id="hero-section"
       ref={sectionRef}
-      className="relative w-full h-[95vh] md:h-screen flex flex-col justify-between bg-primary-1"
+      className="relative w-full h-[95vh] md:h-screen flex flex-col justify-between bg-primary-1 overflow-hidden"
     >
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {/* Background Image */}
@@ -66,12 +69,11 @@ const HeroSection = () => {
             placeholder="blur"
             alt="hero-image"
           />
-          {/* <PixelTrail image="/assets/images/home/hero.webp" /> */}
         </div>
       </div>
 
       <div className="z-10 flex w-full mt-4 md:mt-8 lg:mt-12 pt-20 xl:pt-24 2xl:pt-28 px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-20 justify-between">
-        <ContentReveal delay={0.5} className="flex items-center gap-4 h-fit">
+        <ContentReveal delay={1.5} className="flex items-center gap-4 h-fit">
           <div className="w-[32px] sm:w-[40px] lg:w-[48px] aspect-square shrink-0 flex">
             <DesignDirector />
           </div>
@@ -83,7 +85,7 @@ const HeroSection = () => {
         </ContentReveal>
 
         <ContentReveal
-          delay={0.5}
+          delay={1.5}
           direction="right"
           className="w-[128px] aspect-square hidden md:flex items-center justify-center h-fit -mt-8 relative"
         >
@@ -129,7 +131,7 @@ const HeroSection = () => {
         <TextReveal delay={0.7}>
           <h1 className="w-full text-primary-3 text-right">Code that ships.</h1>
         </TextReveal>
-        <ContentReveal delay={0.8} className="mt-4">
+        <ContentReveal delay={1.5} className="mt-4">
           <p className="max-w-[600px] text-primary-5">
             I'm Madushan — a UI/UX designer and frontend developer crafting
             clean, conversion-focused digital products for startups and brands
