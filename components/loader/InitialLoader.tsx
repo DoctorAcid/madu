@@ -201,7 +201,7 @@ const InitialLoader = () => {
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none"
     >
       {/* ── Background: 4 cream panels (each retracts independently on exit) ── */}
-      <div className="absolute inset-0 flex">
+      <div className="absolute inset-0 flex divide-x divide-black/10">
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}

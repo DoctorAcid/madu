@@ -67,7 +67,7 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {/* Transition overlay — 4 stacked panels */}
       <div
-        className="fixed inset-0 flex flex-col pointer-events-none"
+        className="fixed inset-0 flex flex-col divide-y divide-black/10 pointer-events-none"
         style={{ zIndex: 999 }}
       >
         <div className="z-10 absolute inset-0 flex items-center justify-center">
@@ -79,7 +79,7 @@ const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
             viewBox="0 0 28.8 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="mb-10 opacity-0"
+            className="opacity-0"
             aria-hidden="true"
           >
             <path

@@ -16,6 +16,8 @@ gsap.registerPlugin(ScrollTrigger);
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const title1Ref = useRef<HTMLDivElement>(null);
+  const title2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,6 +44,32 @@ const HeroSection = () => {
             scrub: true,
           },
         },
+      );
+
+      const tl = gsap.timeline();
+
+      tl.fromTo(
+        title1Ref.current,
+        { y: -200, x: "20%", scale: 1.2 },
+        {
+          y: 0,
+          x: "0%",
+          scale: 1,
+          delay: 1.5,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+      ).fromTo(
+        title2Ref.current,
+        { y: -180, x: "-20%", scale: 1.2 },
+        {
+          y: 0,
+          x: "0%",
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "<0",
       );
     });
     return () => ctx.revert();
@@ -121,12 +149,18 @@ const HeroSection = () => {
       </div>
 
       <div className="z-10 flex flex-col w-full pb-8 lg:pb-0 p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20">
-        <TextReveal delay={0.6}>
-          <h1 className="w-full text-primary-3">Design that works.</h1>
-        </TextReveal>
-        <TextReveal delay={0.7}>
-          <h1 className="w-full text-primary-3 text-right">Code that ships.</h1>
-        </TextReveal>
+        <div ref={title1Ref}>
+          <TextReveal delay={0.6}>
+            <h1 className="w-full text-primary-3">Design that works.</h1>
+          </TextReveal>
+        </div>
+        <div ref={title2Ref}>
+          <TextReveal delay={0.7}>
+            <h1 className="w-full text-primary-3 text-right">
+              Code that ships.
+            </h1>
+          </TextReveal>
+        </div>
         <ContentReveal delay={1.5} className="mt-4">
           <p className="max-w-[600px] text-primary-5">
             I'm Madushan — a UI/UX designer and frontend developer crafting
